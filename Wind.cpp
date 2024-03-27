@@ -18,12 +18,12 @@ void Wind::computeWind(double elapsedTime)
 	mLastOrientation = cos(mTotalTime);
 }
 
-double Wind::windAmplitude(double elapsedTime) const
+double Wind::windAmplitude() const
 {
 	return mLastAmplitude;
 }
 
-double Wind::windOrientation(double elapsedTime) const
+double Wind::windOrientation() const
 {
 	return mLastOrientation;
 }

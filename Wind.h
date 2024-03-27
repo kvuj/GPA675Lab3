@@ -24,8 +24,8 @@ public:
 	Wind& operator=(Wind&& w) = delete;
 
 	void computeWind(double elapsedTime);
-	double windAmplitude(double elapsedTime) const;
-	double windOrientation(double elapsedTime) const;
+	double windAmplitude() const;
+	double windOrientation() const;
 	void draw(QPainter* paint) const;
 
 private:
