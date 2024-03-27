@@ -5,6 +5,8 @@ Wind::Wind()
 	, mLastAmplitude{}
 	, mLastOrientation{}
 	, mTotalTime{}
+	, mVecX{}
+	, mVecY{}
 {
 	mPoly << QPoint(7, 8);
 	mPoly << QPoint(-7, 8);
@@ -14,8 +16,10 @@ Wind::Wind()
 void Wind::computeWind(double elapsedTime)
 {
 	mTotalTime += elapsedTime;
-	mLastAmplitude = sin(mTotalTime) * maxAmplitudeButTODORemove;
-	mLastOrientation = cos(mTotalTime);
+	mLastAmplitude = sin(mTotalTime) * maxAmplitude;
+	mLastOrientation = cos(mTotalTime) * pi;
+	mVecX = sin(mLastOrientation);
+	mVecY = cos(mLastOrientation);
 }
 
 double Wind::windAmplitude() const
@@ -37,11 +41,21 @@ void Wind::draw(QPainter* paint) const
 	// Position
 	paint->translate(QPoint(100, 100));
 
-	paint->rotate(qRadiansToDegrees(mLastOrientation) * pi);
+	paint->rotate(qRadiansToDegrees(mLastOrientation));
 	paint->scale(scale, scale);
-	paint->scale(abs(mLastAmplitude) / maxAmplitudeButTODORemove
-		, abs(mLastAmplitude) / maxAmplitudeButTODORemove);
+	paint->scale(abs(mLastAmplitude) / maxAmplitude
+		, abs(mLastAmplitude) / maxAmplitude);
 	paint->drawConvexPolygon(mPoly);
 
 	paint->restore();
+}
+
+double Wind::yPower()
+{
+	return mVecY;
+}
+
+double Wind::xPower()
+{
+	return mVecX;
 }

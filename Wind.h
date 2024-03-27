@@ -9,7 +9,7 @@
 #include <QPolygon>
 #include <QtMath>
 
-constexpr double maxAmplitudeButTODORemove{ 10.0 };
+constexpr double maxAmplitude{ 10.0 };
 constexpr double pi{3.14};
 constexpr double scale{3.0};
 
@@ -28,6 +28,9 @@ public:
 	double windOrientation() const;
 	void draw(QPainter* paint) const;
 
+	double yPower();
+	double xPower();
+
 private:
 	QColor mCol;
 	QPolygon mPoly;
@@ -36,6 +39,9 @@ private:
 	double mLastOrientation;	// RAD
 
 	double mTotalTime;
+
+	double mVecX;
+	double mVecY;
 };
 
 #endif

@@ -17,6 +17,7 @@ Branch::Branch(size_t treeDepth
 	, mParent{ parent }
 	, mLinearAttachDistance{ attachDist() }
 	, mAngleBetweenParent{ angle() }
+	, mAngleFromWind{}
 	, mVarLength{ length() }
 	, mVarWidthBase{ widthBase() }
 	, mVarWidthPoint{ widthPoint() }
@@ -26,7 +27,6 @@ Branch::Branch(size_t treeDepth
 	, mPoly(4)
 	, mColor(139, 69, 19)
 {
-	updatePolygon();
 
 	if (mTreeDepth < treeDepth) {
 		mChildren.reserve(mChildrenCount);
@@ -62,7 +62,7 @@ void Branch::draw(QPainter* painter) const
 
 	if (mParent) [[likely]] {
 		painter->translate((mParent->mLength) * mLinearAttachDistance, 0);
-		painter->rotate(mAngleBetweenParent);
+		painter->rotate(mAngleBetweenParent + (mAngleFromWind * 0.05));
 		}
 	else {
 		painter->rotate(-90.0); // Base de l'arbre
@@ -76,7 +76,7 @@ void Branch::draw(QPainter* painter) const
 	painter->restore();
 }
 
-void Branch::updatePolygon()
+void Branch::updatePolygon(Wind* wind, double absoluteAngle)
 {
 	// Relatif car QPainter sera mis en mode relatif.
 	mPoly.clear();
@@ -84,9 +84,14 @@ void Branch::updatePolygon()
 	mPoly << QPointF(0, mWidthBase / 2.0);
 	mPoly << QPointF(mLength, mWidthPoint / 2.0);
 	mPoly << QPointF(mLength, -mWidthPoint / 2.0);
+	
 	// Pour le vent:
-	//mPoly = QTransform().rotateRadians(...).map(mPoly);
+	double _x{ sin(absoluteAngle) };
+	double _y{ cos(absoluteAngle) };
+	double dot = wind->xPower() * _x + wind->yPower() * _y;
+	double det = wind->xPower() * _y - wind->yPower() * _x;
+	mAngleFromWind = qRadiansToDegrees(atan2(det, dot));
 
 	for (auto i : mChildren)
-		i->updatePolygon();
+		i->updatePolygon(wind, absoluteAngle + mAngleBetweenParent);
 }

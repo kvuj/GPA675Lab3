@@ -11,7 +11,8 @@ Tree::Tree(size_t treeDepth
 	, double widthBaseVal
 	, double widthPointVal
 	, int positionX
-	, int positionY)
+	, int positionY
+	, Wind* wind)
 	: mTrunk{ new Branch(treeDepth
 	, children
 	, nullptr
@@ -25,6 +26,7 @@ Tree::Tree(size_t treeDepth
 	, widthPointVal / 2.0
 	, 0) }
 	, mBasePosition(positionX, positionY)
+	, mWind{ wind }
 {
 }
 
@@ -54,7 +56,7 @@ Tree& Tree::operator=(Tree&& tr) noexcept
 
 void Tree::tic()
 {
-	//mTrunk->updatePolygon();
+	mTrunk->updatePolygon(mWind, 0);
 }
 
 void Tree::draw(QPainter* painter) const

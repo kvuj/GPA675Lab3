@@ -156,7 +156,8 @@ void GPA675Lab3::configurationDone(Parameters params)
 			, 40.0
 			, 20
 			, treeLocationX(mGen)
-			, treeLocationY(mGen));
+			, treeLocationY(mGen)
+			, &mWind);
 
 	show();
 }

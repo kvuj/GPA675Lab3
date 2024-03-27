@@ -12,6 +12,8 @@
 #include <QPolygon>
 #include <QTransform>
 
+#include "Wind.h"
+
 class Branch
 {
 public:
@@ -34,7 +36,7 @@ public:
 	Branch& operator=(Branch&& br) = default;
 
 	void draw(QPainter* painter) const;
-	void updatePolygon();
+	void updatePolygon(Wind* wind, double absoluteAngle);
 
 private:
 	size_t mTreeDepth;
@@ -43,14 +45,12 @@ private:
 	std::vector<Branch*> mChildren;
 	double mLinearAttachDistance;		// % [0, 1]
 	double mAngleBetweenParent;			// RAD
+	double mAngleFromWind;				// RAD
 	double mVarLength;					// % [0, 1]
 	double mVarWidthBase;				// % [0, 1]
 	double mVarWidthPoint;				// % [0, 1]
-	// TODO: Modification couleur
-
-	// TODO: Retirer si 100% relatif
-	// QPoint mBasePos;
-	// QPoint mPointPos;
+	
+	
 	double mOrientation;				// RAD
 	double mLength;
 	double mWidthBase;
@@ -58,7 +58,6 @@ private:
 	QColor mColor;
 
 	QPolygonF mPoly;
-	// TODO: Déformation
 };
 
 #endif

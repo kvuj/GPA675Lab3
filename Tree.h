@@ -7,6 +7,7 @@
 #include <QPainter>
 
 #include "Branch.h"
+#include "Wind.h"
 
 class Tree
 {
@@ -22,7 +23,8 @@ public:
 		, double widthBaseVal
 		, double widthPointVal
 		, int positionX
-		, int positionY);
+		, int positionY
+		, Wind* wind);
 	~Tree();
 	Tree(const Tree& tr) = delete;
 	Tree(Tree&& tr) noexcept;
@@ -35,6 +37,7 @@ public:
 private:
 	Branch* mTrunk;
 	QPoint mBasePosition;
+	Wind* mWind;
 
 	// TODO: Initialise
 	size_t mTotalHeight;
