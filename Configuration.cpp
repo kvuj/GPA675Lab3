@@ -1,7 +1,7 @@
 #include "Configuration.h"
 
 Configuration::Configuration()
-	: QWidget(nullptr), mTreeCount{ 1 }, mTreeDepth{}
+	: QWidget(nullptr), mTreeCount{ 2 }, mTreeDepth{ 4 }
 {
 	resize(400, 600);
 
@@ -15,6 +15,7 @@ Configuration::Configuration()
 	auto* treeCount = new QSpinBox;
 	treeCount->setMinimum(1);
 	treeCount->setMaximum(7);
+	treeCount->setValue(mTreeCount);
 	connect(treeCount, &QSpinBox::valueChanged, this, &Configuration::treeCountClicked);
 
 	auto treeDepthLabel = new QLabel("Profondeur des arbres");
@@ -22,6 +23,7 @@ Configuration::Configuration()
 	auto* treeDepth = new QSpinBox;
 	treeDepth->setMinimum(1);
 	treeDepth->setMaximum(7);
+	treeDepth->setValue(mTreeDepth);
 	connect(treeDepth, &QSpinBox::valueChanged, this, &Configuration::treeDepthClicked);
 
 
