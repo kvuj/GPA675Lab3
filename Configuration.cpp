@@ -14,7 +14,7 @@ Configuration::Configuration()
 
 	auto* treeCount = new QSpinBox;
 	treeCount->setMinimum(1);
-	treeCount->setMaximum(7);
+	treeCount->setMaximum(10);
 	treeCount->setValue(mTreeCount);
 	connect(treeCount, &QSpinBox::valueChanged, this, &Configuration::treeCountClicked);
 

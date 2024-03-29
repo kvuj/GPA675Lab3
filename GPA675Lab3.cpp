@@ -60,14 +60,13 @@ void GPA675Lab3::tic()
 	if (mState == DrawingType::Simulation) {
 		double elapsedTime{ mElapsedTimer.restart() / 1.0e3 };
 
-		for (auto& i : mTrees)
-			i.tic();
-
+		mForest.update(elapsedTime);
 		mWind.computeWind(elapsedTime);
+
 	}
 
 	repaint();
-	mTimer.start();
+	mTimer.start(16);
 }
 
 void GPA675Lab3::key_h()
@@ -95,9 +94,7 @@ void GPA675Lab3::drawingSimulation(QPaintEvent* event)
 	paint.setPen(Qt::NoPen);
 
 	mWind.draw(&paint);
-
-	for (auto& i : mTrees)
-		i.draw(&paint);
+	mForest.draw(&paint);
 }
 
 void GPA675Lab3::drawingHelp(QPaintEvent* event)
@@ -139,25 +136,24 @@ void GPA675Lab3::configurationDone(Parameters params)
 		return 1.0;
 		};
 
-	mTrees.clear();
-	mTrees.reserve(params.treeCount);
+	mForest.clear();
 
 	std::uniform_real_distribution<> treeLocationX(100, width() - 100);
 	std::uniform_real_distribution<> treeLocationY(250, height() - 100);
-	for (size_t i{}; i < params.treeCount; i++)
-		mTrees.emplace_back(params.treeDepth
-			, childrenLambda
-			, attachDistLambda
-			, angleLambda
-			, lengthLambda
-			, widthBaseLambda
-			, widthPointLambda
-			, 500.0
-			, 40.0
-			, 20
-			, treeLocationX(mGen)
-			, treeLocationY(mGen)
-			, &mWind);
+
+	for (size_t i{}; i < params.treeCount; i++){
+		auto tree = std::make_unique<Tree>(params.treeDepth,
+			childrenLambda,
+			attachDistLambda,
+			angleLambda,
+			lengthLambda,
+			widthBaseLambda,
+			widthPointLambda,
+			500.0, 40.0, 20.0,
+			treeLocationX(mGen),
+			treeLocationY(mGen), &mWind);
+		mForest.addTree(std::move(tree));
+	}
 
 	show();
 }

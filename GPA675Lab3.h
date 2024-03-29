@@ -17,6 +17,7 @@
 #include "Configuration.h"
 #include "Definitions.h"
 #include "Tree.h"
+#include "Forest.h"
 #include "Wind.h"
 
 
@@ -41,10 +42,10 @@ public slots:
 
 private:
 	Configuration mConf;
-	std::vector<Tree> mTrees;
 	Wind mWind;
 	Parameters mParams;
 	DrawingType mState;
+	Forest mForest;
 
 	std::unordered_map<Qt::Key, KeyboardAction> mKeyboardActions;
 	std::unordered_map<DrawingType, DrawingAction> mDrawingActions;
