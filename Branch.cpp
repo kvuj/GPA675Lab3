@@ -26,6 +26,7 @@ Branch::Branch(size_t treeDepth
 	, mWidthPoint{ widthPointVal * mVarWidthPoint }
 	, mPoly(4)
 	, mColor(139, 69, 19)
+	,mOrientation{}
 {
 
 	if (mTreeDepth < treeDepth) {
@@ -52,8 +53,8 @@ Branch::Branch(size_t treeDepth
 
 Branch::~Branch()
 {
-	for (auto i : mChildren)
-		delete i;
+	//for (auto i : mChildren)
+	//	delete i;
 }
 
 void Branch::draw(QPainter* painter) const
@@ -70,7 +71,7 @@ void Branch::draw(QPainter* painter) const
 	painter->setBrush(mColor);
 	painter->drawConvexPolygon(mPoly);
 
-	for (auto i : mChildren)
+	for (auto& i : mChildren)
 		i->draw(painter);
 
 	painter->restore();
@@ -92,6 +93,6 @@ void Branch::updatePolygon(Wind* wind, double absoluteAngle)
 	double det = wind->xPower() * _y - wind->yPower() * _x;
 	mAngleFromWind = qRadiansToDegrees(atan2(det, dot));
 
-	for (auto i : mChildren)
+	for (auto& i : mChildren)
 		i->updatePolygon(wind, absoluteAngle + mAngleBetweenParent);
 }

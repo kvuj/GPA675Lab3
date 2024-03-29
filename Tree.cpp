@@ -32,7 +32,7 @@ Tree::Tree(size_t treeDepth
 
 Tree::~Tree()
 {
-	delete mTrunk;
+	//delete mTrunk;
 }
 
 Tree::Tree(Tree&& tr) noexcept
@@ -43,9 +43,9 @@ Tree::Tree(Tree&& tr) noexcept
 Tree& Tree::operator=(Tree&& tr) noexcept
 {
 	if (this != &tr) {
-		delete mTrunk;
+		//delete mTrunk;
 
-		mTrunk = tr.mTrunk;
+		mTrunk = std::move(tr.mTrunk);
 		mTotalHeight = tr.mTotalHeight;
 		mTotalBranch = tr.mTotalBranch;
 		mDensity = tr.mDensity;

@@ -42,7 +42,7 @@ private:
 	size_t mTreeDepth;
 	size_t mChildrenCount;
 	Branch* mParent;
-	std::vector<Branch*> mChildren;
+	std::vector<std::unique_ptr<Branch>> mChildren;
 	double mLinearAttachDistance;		// % [0, 1]
 	double mAngleBetweenParent;			// RAD
 	double mAngleFromWind;				// RAD

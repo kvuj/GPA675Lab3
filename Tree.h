@@ -35,15 +35,14 @@ public:
 	void draw(QPainter* painter) const;
 
 private:
-	Branch* mTrunk;
+	std::unique_ptr<Branch> mTrunk;
 	QPoint mBasePosition;
 	Wind* mWind;
 
-	// TODO: Initialise
-	size_t mTotalHeight;
-	size_t mTotalBranch;
-	double mDensity;
-	double mDeformationResistance;
+	size_t mTotalHeight = 0.0;
+	size_t mTotalBranch=0.0;
+	double mDensity=0.0;
+	double mDeformationResistance=0.0;
 };
 
 #endif

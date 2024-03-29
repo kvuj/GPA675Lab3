@@ -66,4 +66,4 @@ private:
 	void drawingHelp(QPaintEvent* event);
 };
 
-#endif
+#endif //GPA675LAB3_H
