@@ -68,3 +68,17 @@ std::unique_ptr<Tree> Forest::createTreeOfType(TreeType type)
 	}
 }
 
+void Forest::updateTreePositions(int windowHeight, float plantingArea) {
+	float plantingZoneHeight = windowHeight * plantingArea;
+	float minY = windowHeight - plantingZoneHeight;
+
+	for (auto& tree : mTrees) {
+		// Supposons que Tree a une méthode pour obtenir et définir sa position Y
+		QPoint pos = tree->getPosition();
+		if (pos.y() < minY) {
+			pos.setY(minY + ((plantingZoneHeight - 100) * (rand() / (RAND_MAX + 1.0)))); // Exemple simplifié
+			tree->setPosition(pos);
+		}
+	}
+}
+

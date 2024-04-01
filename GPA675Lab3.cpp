@@ -93,6 +93,12 @@ void GPA675Lab3::drawingSimulation(QPaintEvent* event)
 	paint.setRenderHint(QPainter::Antialiasing);
 	paint.setPen(Qt::NoPen);
 
+	// Dessiner la zone de plantation
+	float plantingZoneHeight = height() * mPlantingArea; // 30% de la hauteur de la fenêtre
+	QRect plantingZoneRect(0, height() - plantingZoneHeight, width(), plantingZoneHeight);
+	paint.fillRect(plantingZoneRect, QColor(200, 255, 200)); // Couleur verte claire pour la zone de plantation
+
+
 	mWind.draw(&paint);
 	mForest.draw(&paint);
 }
@@ -113,6 +119,7 @@ void GPA675Lab3::drawingHelp(QPaintEvent* event)
 void GPA675Lab3::configurationDone(Parameters params)
 {
 	mParams = params;
+	float plantingZoneHeight = height() * mPlantingArea; // 30% de la hauteur de la fenêtre
 	auto childrenLambda = [&]() -> size_t {
 		std::uniform_int_distribution<> _r(2, 6);
 		return _r(mGen);
@@ -139,7 +146,7 @@ void GPA675Lab3::configurationDone(Parameters params)
 	mForest.clear();
 
 	std::uniform_real_distribution<> treeLocationX(100, width() - 100);
-	std::uniform_real_distribution<> treeLocationY(250, height() - 100);
+	std::uniform_real_distribution<> treeLocationY(height() - plantingZoneHeight, height());
 
 	for (size_t i{}; i < params.treeCount; i++){
 		auto tree = std::make_unique<Tree>(params.treeDepth,
@@ -156,4 +163,10 @@ void GPA675Lab3::configurationDone(Parameters params)
 	}
 
 	show();
+}
+
+void GPA675Lab3::resizeEvent(QResizeEvent* event) {
+	QMainWindow::resizeEvent(event);
+	mForest.updateTreePositions(height(), mPlantingArea);
+	update(); // Demander une mise à jour du dessin
 }

@@ -37,6 +37,8 @@ public:
 	virtual void setColor(QColor color);
 	virtual void setDensity(double density);
 	virtual void setDeformationResistance(double deformationResistance);
+	virtual QPoint getPosition() const;
+	virtual void setPosition(QPoint position);
 private:
 	std::unique_ptr<Branch> mTrunk;
 	QPoint mBasePosition;

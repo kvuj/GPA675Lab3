@@ -85,3 +85,13 @@ void Tree::setDeformationResistance(double deformationResistance)
 {
 	mDeformationResistance = deformationResistance;
 }
+
+QPoint Tree::getPosition() const
+{
+	return mBasePosition;
+}
+
+void Tree::setPosition(QPoint position)
+{
+		mBasePosition = position;
+}

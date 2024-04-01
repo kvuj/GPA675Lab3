@@ -31,7 +31,7 @@ public:
             length,
             widthBase,
             widthPoint,
-            lengthVal, // Ajustez cette valeur pour représenter la petite taille
+            lengthVal,
             widthBaseVal,
             widthPointVal,
             positionX,

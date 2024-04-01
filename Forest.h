@@ -31,6 +31,7 @@ public:
     void update(double elapsedTime);
     void draw(QPainter* painter) const;
     void clear(); //efface les arbres de la foret 
+    void updateTreePositions(int windowHeight, float plantingArea);
 private:
 
     std::vector<std::unique_ptr<Tree>> mTrees;
@@ -39,6 +40,7 @@ private:
 
     //pour créer un arbre d'une essence spécifique
     std::unique_ptr<Tree> createTreeOfType(TreeType type);
+    
 };
 
 #endif

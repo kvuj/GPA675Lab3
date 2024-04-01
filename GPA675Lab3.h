@@ -65,6 +65,8 @@ private:
 
 	void drawingSimulation(QPaintEvent* event);
 	void drawingHelp(QPaintEvent* event);
+	void resizeEvent(QResizeEvent* event);
+	double mPlantingArea =0.3; //30% de la fenetre est la zone d eplantation
 };
 
 #endif //GPA675LAB3_H
