@@ -96,3 +96,12 @@ void Branch::updatePolygon(Wind* wind, double absoluteAngle)
 	for (auto& i : mChildren)
 		i->updatePolygon(wind, absoluteAngle + mAngleBetweenParent);
 }
+
+void Branch::setColor(QColor color)
+{
+		mColor = color;
+		// Appel récursif pour définir la couleur de toutes les branches enfants
+    for (auto& child : mChildren) {
+        child->setColor(color);
+    }
+}

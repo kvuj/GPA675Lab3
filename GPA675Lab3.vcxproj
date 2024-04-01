@@ -99,6 +99,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Buisson.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="Forest.cpp" />
     <ClCompile Include="Tree.cpp" />
@@ -110,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Branch.h" />
+    <ClInclude Include="Buisson.h" />
     <ClInclude Include="Wind.h" />
     <QtMoc Include="Configuration.h" />
     <ClInclude Include="Definitions.h" />

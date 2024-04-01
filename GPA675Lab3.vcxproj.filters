@@ -9,6 +9,12 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\Essence">
+      <UniqueIdentifier>{87ee114b-4237-4a64-92bd-045b5b4cfe21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Essence">
+      <UniqueIdentifier>{56ed8908-3892-4073-be51-1df5cbe76e43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="GPA675Lab3.h">
@@ -40,6 +46,9 @@
     <ClCompile Include="Wind.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Buisson.cpp">
+      <Filter>Source Files\Essence</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Branch.h">
@@ -56,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="Wind.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Buisson.h">
+      <Filter>Header Files\Essence</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

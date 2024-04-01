@@ -1,5 +1,9 @@
 #include "Tree.h"
 
+Tree::Tree()
+{
+}
+
 Tree::Tree(size_t treeDepth
 	, std::function<size_t()> children
 	, std::function<double()> attachDist
@@ -65,4 +69,19 @@ void Tree::draw(QPainter* painter) const
 	painter->translate(mBasePosition);
 	mTrunk->draw(painter);
 	painter->restore();
+}
+
+void Tree::setColor(QColor color)
+{
+	mTrunk->setColor(color);
+}
+
+void Tree::setDensity(double density)
+{
+	mDensity = density;
+}
+
+void Tree::setDeformationResistance(double deformationResistance)
+{
+	mDeformationResistance = deformationResistance;
 }

@@ -17,6 +17,7 @@
 class Branch
 {
 public:
+	Branch();
 	Branch(size_t treeDepth
 		, std::function<size_t()> children
 		, Branch* parent
@@ -37,6 +38,7 @@ public:
 
 	void draw(QPainter* painter) const;
 	void updatePolygon(Wind* wind, double absoluteAngle);
+	void setColor(QColor color);
 
 private:
 	size_t mTreeDepth;
