@@ -32,6 +32,7 @@ Tree::Tree(size_t treeDepth
 	, mBasePosition(positionX, positionY)
 	, mWind{ wind }
 {
+	
 }
 
 Tree::~Tree()
@@ -94,4 +95,9 @@ QPoint Tree::getPosition() const
 void Tree::setPosition(QPoint position)
 {
 		mBasePosition = position;
+}
+
+void Tree::setLenght(double lenght)
+{
+
 }

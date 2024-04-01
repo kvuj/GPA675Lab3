@@ -39,6 +39,7 @@ public:
 	virtual void setDeformationResistance(double deformationResistance);
 	virtual QPoint getPosition() const;
 	virtual void setPosition(QPoint position);
+	virtual void setLenght(double lenght);
 private:
 	std::unique_ptr<Branch> mTrunk;
 	QPoint mBasePosition;
@@ -48,6 +49,7 @@ private:
 	size_t mTotalBranch=0.0;
 	double mDensity=0.0;
 	double mDeformationResistance=0.0; //à modifier dans les essences
+
 };
 
 #endif
