@@ -49,6 +49,12 @@
     <ClCompile Include="Buisson.cpp">
       <Filter>Source Files\Essence</Filter>
     </ClCompile>
+    <ClCompile Include="Sapin.cpp">
+      <Filter>Source Files\Essence</Filter>
+    </ClCompile>
+    <ClCompile Include="Baobab.cpp">
+      <Filter>Source Files\Essence</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Branch.h">
@@ -67,6 +73,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Buisson.h">
+      <Filter>Header Files\Essence</Filter>
+    </ClInclude>
+    <ClInclude Include="Sapin.h">
+      <Filter>Header Files\Essence</Filter>
+    </ClInclude>
+    <ClInclude Include="Baobab.h">
       <Filter>Header Files\Essence</Filter>
     </ClInclude>
   </ItemGroup>

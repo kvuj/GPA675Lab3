@@ -1,18 +1,18 @@
 #pragma once
-#ifndef BUISSON_H
-#define BUISSON_H
+#ifndef SAPIN_H
+#define SAPIN_H
 
 #include "Tree.h"
 #include <QColor>
 
-// Le buisson est un arbre de petite taille et de couleur jaune_vert
+// Le Sapin est un arbre de taille moyenne et de couleur vert sapin
 //il resiste bien au vent
-//les branches sont plus courtes et plus éloignées les unes des autres
-class Buisson : public Tree
+//ses branches sont plus rappochées que les autres arbres
+class Sapin : public Tree
 {
 public:
-    Buisson();
-    Buisson(size_t treeDepth,
+    Sapin();
+    Sapin(size_t treeDepth,
         std::function<size_t()> children,
         std::function<double()> attachDist,
         std::function<double()> angle,
@@ -39,11 +39,11 @@ public:
             positionY,
             wind)
     {
-        setColor(QColor(173, 255, 47));
-        
-        
+        setColor(QColor(9,82, 40));
+
+
     }
-    
+
 };
 
-#endif // !BUISSON_H
+#endif // !SAPIN_H

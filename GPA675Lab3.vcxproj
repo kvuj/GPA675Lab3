@@ -99,9 +99,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Baobab.cpp" />
     <ClCompile Include="Buisson.cpp" />
     <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="Forest.cpp" />
+    <ClCompile Include="Sapin.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Wind.cpp" />
     <QtMoc Include="GPA675Lab3.h" />
@@ -110,8 +112,10 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Baobab.h" />
     <ClInclude Include="Branch.h" />
     <ClInclude Include="Buisson.h" />
+    <ClInclude Include="Sapin.h" />
     <ClInclude Include="Wind.h" />
     <QtMoc Include="Configuration.h" />
     <ClInclude Include="Definitions.h" />

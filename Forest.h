@@ -7,6 +7,8 @@
 #include <memory>
 #include <random>
 #include "Buisson.h"
+#include "Sapin.h"
+#include "Baobab.h"
 
 // Essence d'arbre
 enum class TreeType { Bouleau, Buisson, Sapin };

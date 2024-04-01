@@ -1,18 +1,18 @@
 #pragma once
-#ifndef BUISSON_H
-#define BUISSON_H
+#ifndef BAOBAB_H
+#define BAOBAB_H
 
 #include "Tree.h"
 #include <QColor>
 
-// Le buisson est un arbre de petite taille et de couleur jaune_vert
-//il resiste bien au vent
-//les branches sont plus courtes et plus éloignées les unes des autres
-class Buisson : public Tree
+// Le Baobab est un arbre de très grande taille, il est très large
+// Il a des betite branches
+//Il est très sombres
+class Baobab : public Tree
 {
 public:
-    Buisson();
-    Buisson(size_t treeDepth,
+    Baobab();
+    Baobab(size_t treeDepth,
         std::function<size_t()> children,
         std::function<double()> attachDist,
         std::function<double()> angle,
@@ -39,11 +39,11 @@ public:
             positionY,
             wind)
     {
-        setColor(QColor(173, 255, 47));
-        
-        
+        setColor(QColor(88, 41, 0));
+
+
     }
-    
+
 };
 
-#endif // !BUISSON_H
+#endif // !BAOBAB_H
