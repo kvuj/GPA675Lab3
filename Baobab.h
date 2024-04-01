@@ -24,26 +24,14 @@ public:
         double widthPointVal,
         int positionX,
         int positionY,
-        Wind* wind)
-        : Tree(treeDepth,
-            children,
-            attachDist,
-            angle,
-            length,
-            widthBase,
-            widthPoint,
-            lengthVal,
-            widthBaseVal,
-            widthPointVal,
-            positionX,
-            positionY,
-            wind)
-    {
-        setColor(QColor(88, 41, 0));
+        Wind* wind);
+        
 
-
-    }
-
+    static constexpr double DEFAULT_BRANCH_LENGTH = 1.0;
+    static constexpr double DEFAULT_BRANCH_WIDTH_BASE = 1.0;
+    static constexpr double DEFAULT_BRANCH_WIDTH_POINT = 1.0;
+    static constexpr double DEFAULT_BRANCH_ANGLE = 1.0;
+    static constexpr double DEFAULT_BRANCH_ATTACH_DIST = 0.7;
 };
 
 #endif // !BAOBAB_H

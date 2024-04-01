@@ -11,7 +11,6 @@
 class Sapin : public Tree
 {
 public:
-    Sapin();
     Sapin(size_t treeDepth,
         std::function<size_t()> children,
         std::function<double()> attachDist,
@@ -24,25 +23,13 @@ public:
         double widthPointVal,
         int positionX,
         int positionY,
-        Wind* wind)
-        : Tree(treeDepth,
-            children,
-            attachDist,
-            angle,
-            length,
-            widthBase,
-            widthPoint,
-            lengthVal,
-            widthBaseVal,
-            widthPointVal,
-            positionX,
-            positionY,
-            wind)
-    {
-        setColor(QColor(9,82, 40));
+        Wind* wind);
 
-
-    }
+    static constexpr double DEFAULT_BRANCH_LENGTH = 0.7;
+    static constexpr double DEFAULT_BRANCH_WIDTH_BASE = 1.0;
+    static constexpr double DEFAULT_BRANCH_WIDTH_POINT = 1.0;
+    static constexpr double DEFAULT_BRANCH_ANGLE = 1.0;
+    static constexpr double DEFAULT_BRANCH_ATTACH_DIST = 0.7;
 
 };
 

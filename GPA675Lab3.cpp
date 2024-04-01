@@ -149,7 +149,7 @@ void GPA675Lab3::configurationDone(Parameters params)
 	std::uniform_real_distribution<> treeLocationY(height() - plantingZoneHeight, height());
 
 	for (size_t i{}; i < params.treeCount; i++){
-		auto tree = std::make_unique<Buisson>(params.treeDepth,
+		auto tree = std::make_unique<Sapin>(params.treeDepth,
 			childrenLambda,
 			attachDistLambda,
 			angleLambda,
