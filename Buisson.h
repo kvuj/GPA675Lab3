@@ -2,16 +2,16 @@
 #ifndef BUISSON_H
 #define BUISSON_H
 
-#include "Tree.h"
 #include <QColor>
 
+#include "Tree.h"
+
 // Le buisson est un arbre de petite taille et de couleur jaune_vert
-//il resiste bien au vent
-//les branches sont plus courtes et plus éloignées les unes des autres
+// Il résiste bien au vent
+// Les branches sont plus courtes et plus éloignées les unes des autres
 class Buisson : public Tree
 {
 public:
-    Buisson();
     Buisson(size_t treeDepth,
         std::function<size_t()> children,
         std::function<double()> attachDist,

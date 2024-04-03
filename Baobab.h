@@ -2,16 +2,16 @@
 #ifndef BAOBAB_H
 #define BAOBAB_H
 
-#include "Tree.h"
 #include <QColor>
 
+#include "Tree.h"
+
 // Le Baobab est un arbre de très grande taille, il est très large
-// Il a des betite branches
-//Il est très sombres
+// Il a des petites branches
+// Il est très sombres
 class Baobab : public Tree
 {
 public:
-    Baobab();
     Baobab(size_t treeDepth,
         std::function<size_t()> children,
         std::function<double()> attachDist,

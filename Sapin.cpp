@@ -1,8 +1,5 @@
 #include "Sapin.h"
 
-
-
-
 Sapin::Sapin(size_t treeDepth,
 	std::function<size_t()> children,
 	std::function<double()> attachDist,
