@@ -20,9 +20,6 @@
     <QtMoc Include="GPA675Lab3.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="GPA675Lab3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <QtMoc Include="Configuration.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -54,6 +51,9 @@
     </ClCompile>
     <ClCompile Include="Baobab.cpp">
       <Filter>Source Files\Essence</Filter>
+    </ClCompile>
+    <ClCompile Include="GPA675Lab3.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

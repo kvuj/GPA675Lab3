@@ -57,11 +57,14 @@ void GPA675Lab3::keyPressEvent(QKeyEvent* event)
 
 void GPA675Lab3::tic()
 {
-	if (mState == DrawingType::Simulation) {
+	if (mState == DrawingType::Simulation)
+	{
 		double elapsedTime{ mElapsedTimer.restart() / 1.0e3 };
 
 		mForest.update(elapsedTime);
 		mWind.computeWind(elapsedTime);
+		mTimeBeforePause = 0.0;
+
 	}
 
 	repaint();
@@ -73,17 +76,34 @@ void GPA675Lab3::key_h()
 	mState = DrawingType::Help;
 }
 
+// Mettre en pause ou reprendre la simulation
 void GPA675Lab3::key_space()
 {
+	if (mState != DrawingType::Pause)
+	{
+		mTimeBeforePause = mElapsedTimer.elapsed() / 1.0e3;
+		mState = DrawingType::Pause;
+		mTimer.stop();
+	}
+	else
+	{
+		mState = DrawingType::Simulation;
+		mElapsedTimer.restart();
+		mTimer.start();
+	}
+
 }
 
 void GPA675Lab3::key_enter()
 {
 	mState = DrawingType::Simulation;
 }
-
+// Reset la simulation avec la configuration actuelle
 void GPA675Lab3::key_backSpace()
 {
+	configurationDone(mParams);
+	mState = DrawingType::Simulation;
+
 }
 
 void GPA675Lab3::drawingSimulation(QPaintEvent* event)

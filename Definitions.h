@@ -15,7 +15,8 @@ struct Parameters
 enum DrawingType : uint8_t
 {
 	Simulation = 1,
-	Help = 2
+	Help = 2,
+	Pause = 3
 };
 
 #endif

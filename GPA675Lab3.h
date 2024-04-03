@@ -67,6 +67,7 @@ private:
 	void drawingHelp(QPaintEvent* event);
 	void resizeEvent(QResizeEvent* event);
 	double mPlantingArea =0.3; // 30% de la fenêtre est la zone de plantation
+	double  mTimeBeforePause;
 };
 
 #endif //GPA675LAB3_H
