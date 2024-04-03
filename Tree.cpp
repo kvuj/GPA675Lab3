@@ -1,9 +1,5 @@
 #include "Tree.h"
 
-Tree::Tree()
-{
-}
-
 Tree::Tree(size_t treeDepth
 	, std::function<size_t()> children
 	, std::function<double()> attachDist

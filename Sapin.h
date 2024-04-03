@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef SAPIN_H
 #define SAPIN_H
 
@@ -7,8 +7,8 @@
 #include "Tree.h"
 
 // Le Sapin est un arbre de taille moyenne et de couleur vert sapin
-// Il résiste bien au vent
-// Ses branches sont plus rappochées que les autres arbres
+// Il rÃ©siste bien au vent
+// Ses branches sont plus rapprochÃ©es que les autres arbres
 class Sapin : public Tree
 {
 public:

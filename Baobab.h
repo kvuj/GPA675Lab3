@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef BAOBAB_H
 #define BAOBAB_H
 
@@ -6,9 +6,9 @@
 
 #include "Tree.h"
 
-// Le Baobab est un arbre de très grande taille, il est très large
+// Le Baobab est un arbre de trÃ¨s grande taille, il est trÃ¨s large
 // Il a des petites branches
-// Il est très sombres
+// Il est trÃ¨s sombres
 class Baobab : public Tree
 {
 public:

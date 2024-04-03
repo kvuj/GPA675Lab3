@@ -1,12 +1,10 @@
-#include "Forest.h"
-
+ï»¿#include "Forest.h"
 
 Forest::Forest()
 {
 	mUseMixedEssence = false;
 	mTreeTypeConfig = TreeType::Buisson;
 }
-
 
 void Forest::addTree(std::unique_ptr<Tree> tree)
 {
@@ -73,10 +71,10 @@ void Forest::updateTreePositions(int windowHeight, float plantingArea) {
 	float minY = windowHeight - plantingZoneHeight;
 
 	for (auto& tree : mTrees) {
-		// Supposons que Tree a une méthode pour obtenir et définir sa position Y
+		// Supposons que Tree a une mÃ©thode pour obtenir et dÃ©finir sa position Y
 		QPoint pos = tree->getPosition();
 		if (pos.y() < minY) {
-			pos.setY(minY + ((plantingZoneHeight - 100) * (rand() / (RAND_MAX + 1.0)))); // Exemple simplifié
+			pos.setY(minY + ((plantingZoneHeight - 100) * (rand() / (RAND_MAX + 1.0)))); // Exemple simplifiÃ©
 			tree->setPosition(pos);
 		}
 	}

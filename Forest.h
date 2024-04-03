@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef FOREST_H
 #define FOREST_H
 
@@ -23,12 +23,12 @@ public:
     Forest(const Forest& other) = delete;
     Forest& operator=(const Forest& other) = delete;
 
-    // Ajouter un arbre à la forêt
+    // Ajouter un arbre Ã  la forÃªt
     void addTree(std::unique_ptr<Tree> tree);
-    // Ajoute une essence d'arbre spécifique à la forêt
+    // Ajoute une essence d'arbre spÃ©cifique Ã  la forÃªt
     void addSpecificTree(TreeType type);
 
-    // Randomise les essences d'arbre dans la forêt
+    // Randomise les essences d'arbre dans la forÃªt
     void randomizeTrees();
     void update(double elapsedTime);
     void draw(QPainter* painter) const;
@@ -37,10 +37,10 @@ public:
 private:
 
     std::vector<std::unique_ptr<Tree>> mTrees;
-    TreeType mTreeTypeConfig; // Configuration de type d'arbre pour la forêt
-    bool mUseMixedEssence; // Indique si la forêt utilise un mélange d'essences d'arbres
+    TreeType mTreeTypeConfig; // Configuration de type d'arbre pour la forÃªt
+    bool mUseMixedEssence; // Indique si la forÃªt utilise un mÃ©lange d'essences d'arbres
 
-    //pour créer un arbre d'une essence spécifique
+    //pour crÃ©er un arbre d'une essence spÃ©cifique
     std::unique_ptr<Tree> createTreeOfType(TreeType type);
     
 };

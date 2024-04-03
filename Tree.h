@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef TREE_H
 #define TREE_H
 
@@ -12,7 +12,6 @@
 class Tree
 {
 public:
-	Tree();
 	Tree(size_t treeDepth
 		, std::function<size_t()> children
 		, std::function<double()> attachDist
@@ -45,10 +44,10 @@ private:
 	QPoint mBasePosition;
 	Wind* mWind;
 
-	size_t mTotalHeight = 0.0; //à modifier dans les essences
+	size_t mTotalHeight = 0.0; //Ã  modifier dans les essences
 	size_t mTotalBranch=0.0;
 	double mDensity=0.0;
-	double mDeformationResistance=0.0; //à modifier dans les essences
+	double mDeformationResistance=0.0; //Ã  modifier dans les essences
 
 };
 
