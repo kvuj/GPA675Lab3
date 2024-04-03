@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef GPA675LAB3_H
 #define GPA675LAB3_H
 
@@ -66,7 +66,7 @@ private:
 	void drawingSimulation(QPaintEvent* event);
 	void drawingHelp(QPaintEvent* event);
 	void resizeEvent(QResizeEvent* event);
-	double mPlantingArea =0.3; //30% de la fenetre est la zone d eplantation
+	double mPlantingArea =0.3; // 30% de la fenêtre est la zone de plantation
 };
 
 #endif //GPA675LAB3_H

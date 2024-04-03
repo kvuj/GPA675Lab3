@@ -27,7 +27,5 @@ Baobab::Baobab(size_t treeDepth,
 		wind)
 {
 	setColor(QColor(88, 41, 0));
-
-
 }
 

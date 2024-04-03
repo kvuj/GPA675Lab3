@@ -62,7 +62,6 @@ void GPA675Lab3::tic()
 
 		mForest.update(elapsedTime);
 		mWind.computeWind(elapsedTime);
-
 	}
 
 	repaint();

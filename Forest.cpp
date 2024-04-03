@@ -17,14 +17,13 @@ void Forest::addSpecificTree(TreeType type)
 	addTree(std::move(tree));
 }
 
-
 void Forest::randomizeTrees()
 {
 	clear(); // Effacer les arbres existants avant de randomiser
 
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> distrib(1,2); // Ajustez pour le nombre de types d'arbres
+	std::uniform_int_distribution<> distrib(1, 2); // Ajustez pour le nombre de types d'arbres
 
 	for (size_t i = 0; i < mTrees.size(); ++i) {
 		TreeType type = mUseMixedEssence ? static_cast<TreeType>(distrib(gen)) : mTreeTypeConfig;
@@ -51,7 +50,7 @@ void Forest::draw(QPainter* painter) const
 
 void Forest::clear()
 {
-		mTrees.clear();
+	mTrees.clear();
 }
 
 std::unique_ptr<Tree> Forest::createTreeOfType(TreeType type)
@@ -60,13 +59,14 @@ std::unique_ptr<Tree> Forest::createTreeOfType(TreeType type)
 	case TreeType::Bouleau:
 		return nullptr;
 	case TreeType::Buisson:
-		return std::make_unique<Buisson>();
+		return nullptr; //std::make_unique<Buisson>();
 	default:
 		return nullptr;
 	}
 }
 
-void Forest::updateTreePositions(int windowHeight, float plantingArea) {
+void Forest::updateTreePositions(int windowHeight, float plantingArea)
+{
 	float plantingZoneHeight = windowHeight * plantingArea;
 	float minY = windowHeight - plantingZoneHeight;
 

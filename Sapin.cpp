@@ -12,20 +12,20 @@ Sapin::Sapin(size_t treeDepth,
 	int positionX,
 	int positionY,
 	Wind* wind)
-    :Tree( // Appel du constructeur de base avec la liste d'initialisation
-        treeDepth,
-        children,
-        [attachDist]() -> double { return DEFAULT_BRANCH_ATTACH_DIST * attachDist(); },
-        [angle]() -> double { return DEFAULT_BRANCH_ANGLE * angle(); },
-        [length]() -> double { return DEFAULT_BRANCH_LENGTH * length(); },
-        [widthBase]() -> double { return DEFAULT_BRANCH_WIDTH_BASE * widthBase(); },
-        [widthPoint]() -> double { return DEFAULT_BRANCH_WIDTH_POINT * widthPoint(); },
-        lengthVal,
-        widthBaseVal,
-        widthPointVal,
-        positionX,
-        positionY,
-        wind)
+	:Tree( // Appel du constructeur de base avec la liste d'initialisation
+		treeDepth,
+		children,
+		[attachDist]() -> double { return DEFAULT_BRANCH_ATTACH_DIST * attachDist(); },
+		[angle]() -> double { return DEFAULT_BRANCH_ANGLE * angle(); },
+		[length]() -> double { return DEFAULT_BRANCH_LENGTH * length(); },
+		[widthBase]() -> double { return DEFAULT_BRANCH_WIDTH_BASE * widthBase(); },
+		[widthPoint]() -> double { return DEFAULT_BRANCH_WIDTH_POINT * widthPoint(); },
+		lengthVal,
+		widthBaseVal,
+		widthPointVal,
+		positionX,
+		positionY,
+		wind)
 {
-    setColor(QColor(9, 82, 40));
+	setColor(QColor(9, 82, 40));
 }

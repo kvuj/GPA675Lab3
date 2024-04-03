@@ -26,7 +26,7 @@ Branch::Branch(size_t treeDepth
 	, mWidthPoint{ widthPointVal * mVarWidthPoint }
 	, mPoly(4)
 	, mColor(139, 69, 19)
-	,mOrientation{}
+	, mOrientation{}
 {
 
 	if (mTreeDepth < treeDepth) {
@@ -85,7 +85,7 @@ void Branch::updatePolygon(Wind* wind, double absoluteAngle)
 	mPoly << QPointF(0, mWidthBase / 2.0);
 	mPoly << QPointF(mLength, mWidthPoint / 2.0);
 	mPoly << QPointF(mLength, -mWidthPoint / 2.0);
-	
+
 	// Pour le vent:
 	double _x{ sin(absoluteAngle) };
 	double _y{ cos(absoluteAngle) };
@@ -99,9 +99,9 @@ void Branch::updatePolygon(Wind* wind, double absoluteAngle)
 
 void Branch::setColor(QColor color)
 {
-		mColor = color;
-		// Appel récursif pour définir la couleur de toutes les branches enfants
-    for (auto& child : mChildren) {
-        child->setColor(color);
-    }
+	mColor = color;
+	// Appel récursif pour définir la couleur de toutes les branches enfants
+	for (auto& child : mChildren) {
+		child->setColor(color);
+	}
 }

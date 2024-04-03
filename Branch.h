@@ -17,7 +17,6 @@
 class Branch
 {
 public:
-	Branch();
 	Branch(size_t treeDepth
 		, std::function<size_t()> children
 		, Branch* parent

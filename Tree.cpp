@@ -28,12 +28,10 @@ Tree::Tree(size_t treeDepth
 	, mBasePosition(positionX, positionY)
 	, mWind{ wind }
 {
-	
 }
 
 Tree::~Tree()
 {
-	//delete mTrunk;
 }
 
 Tree::Tree(Tree&& tr) noexcept
@@ -44,7 +42,7 @@ Tree::Tree(Tree&& tr) noexcept
 Tree& Tree::operator=(Tree&& tr) noexcept
 {
 	if (this != &tr) {
-		//delete mTrunk;
+		mTrunk.reset();
 
 		mTrunk = std::move(tr.mTrunk);
 		mTotalHeight = tr.mTotalHeight;
@@ -90,10 +88,10 @@ QPoint Tree::getPosition() const
 
 void Tree::setPosition(QPoint position)
 {
-		mBasePosition = position;
+	mBasePosition = position;
 }
 
-void Tree::setLenght(double lenght)
+void Tree::setLength(double length)
 {
 
 }
