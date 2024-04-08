@@ -7,6 +7,7 @@ GPA675Lab3::GPA675Lab3(QWidget* parent)
 	, mParams{}
 	, mState{ DrawingType::Help }
 	, mFont("Selection", 18)
+	, mTimeBeforePause{}
 {
 	/*
 		Pour un raison inconnue, le premier appel de drawText() prend de 200 ms
@@ -167,7 +168,7 @@ void GPA675Lab3::configurationDone(Parameters params)
 	std::uniform_real_distribution<> treeLocationX(100, width() - 100);
 	std::uniform_real_distribution<> treeLocationY(height() - plantingZoneHeight, height());
 
-	for (size_t i{}; i < params.treeCount; i++){
+	for (size_t i{}; i < params.treeCount; i++) {
 		auto tree = std::make_unique<Sapin>(params.treeDepth,
 			childrenLambda,
 			attachDistLambda,
@@ -184,7 +185,8 @@ void GPA675Lab3::configurationDone(Parameters params)
 	show();
 }
 
-void GPA675Lab3::resizeEvent(QResizeEvent* event) {
+void GPA675Lab3::resizeEvent(QResizeEvent* event)
+{
 	QMainWindow::resizeEvent(event);
 	mForest.updateTreePositions(height(), mPlantingArea);
 	update(); // Demander une mise à jour du dessin

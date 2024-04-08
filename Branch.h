@@ -29,7 +29,7 @@ public:
 		, double widthBaseVal
 		, double widthPointVal
 		, size_t currentDepth);
-	~Branch();
+	~Branch() = default;
 	Branch(const Branch& br) = delete;
 	Branch(Branch&& br) = default;
 	Branch& operator=(const Branch& br) = delete;
