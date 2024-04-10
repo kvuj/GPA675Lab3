@@ -47,9 +47,13 @@ private:
 	DrawingType mState;
 	Forest mForest;
 
-	std::unordered_map<Qt::Key, KeyboardAction> mKeyboardActions;
-	std::unordered_map<DrawingType, DrawingAction> mDrawingActions;
 
+	//Mapage des touches et des actions
+	using Action = std::function<void()>;
+	std::unordered_map<int, Action> keyActions;
+	std::unordered_map<DrawingType, DrawingAction> mDrawingActions;
+	std::unordered_map<int,int> mKeyDepth;
+	
 	QTimer mTimer;
 	QElapsedTimer mElapsedTimer;
 	QFont mFont;
@@ -63,11 +67,19 @@ private:
 	void key_enter();
 	void key_backSpace();
 
+	void setTreeCount(int count);
+	void randomizeTreeCount(int min, int max);
+
+	void setTreeType(TreeType type);
+	void randomizeTreeType();
+	void setTreeDepth(int depth);
+
+
 	void drawingSimulation(QPaintEvent* event);
 	void drawingHelp(QPaintEvent* event);
 	void resizeEvent(QResizeEvent* event);
 	double mPlantingArea =0.3; // 30% de la fenêtre est la zone de plantation
-	double  mTimeBeforePause;
+	double  mTimeBeforePause=0.0;
 };
 
 #endif //GPA675LAB3_H

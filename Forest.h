@@ -13,7 +13,7 @@
 // Essence d'arbre
 enum class TreeType : uint8_t
 {
-	Bouleau, Buisson, Sapin
+	Baobab, Buisson, Sapin
 };
 
 class Forest

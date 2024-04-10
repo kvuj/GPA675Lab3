@@ -56,7 +56,7 @@ void Forest::clear()
 std::unique_ptr<Tree> Forest::createTreeOfType(TreeType type)
 {
 	switch (type) {
-	case TreeType::Bouleau:
+	case TreeType::Baobab:
 		return nullptr;
 	case TreeType::Buisson:
 		return nullptr; //std::make_unique<Buisson>();
