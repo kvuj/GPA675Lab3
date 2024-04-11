@@ -35,7 +35,7 @@ GPA675Lab3::GPA675Lab3(QWidget* parent)
 	keyActions[Qt::Key_Return] = [this]() { key_enter(); };
 	keyActions[Qt::Key_Enter] = [this]() { key_enter(); };
 	keyActions[Qt::Key_Backspace] = [this]() { key_backSpace(); };
-	
+	keyActions[Qt::Key_Tab] = [this]() { key_tabulation(); };
 	//Actions pour le nombre d'arbres
 	for (int key = Qt::Key_1; key <= Qt::Key_9; ++key)
 	{
@@ -148,6 +148,12 @@ void GPA675Lab3::key_backSpace()
 	configurationDone(mParams);
 	mState = DrawingType::Simulation;
 
+}
+
+void GPA675Lab3::key_tabulation()
+{
+	mWind.changeConfig();
+	mWind.computeWind(mElapsedTimer.restart());
 }
 
 void GPA675Lab3::setTreeCount(int count)

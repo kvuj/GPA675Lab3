@@ -16,10 +16,24 @@ Wind::Wind()
 void Wind::computeWind(double elapsedTime)
 {
 	mTotalTime += elapsedTime;
-	mLastAmplitude = sin(mTotalTime) * maxAmplitude;
-	mLastOrientation = cos(mTotalTime) * pi;
-	mVecX = sin(mLastOrientation);
-	mVecY = cos(mLastOrientation);
+	
+	switch (mWindConfig)
+	{
+	case WindConfiguration::Swirling:
+		mLastAmplitude = sin(mTotalTime) * maxAmplitude;
+		mLastOrientation = cos(mTotalTime) * pi;
+		mVecX = sin(mLastOrientation);
+		mVecY = cos(mLastOrientation);
+		break;
+	case WindConfiguration::Horizontal:
+		mLastAmplitude = maxAmplitude; // ou une autre logique pour l'intensité
+		mLastOrientation = 0; // Vent horizontal vers la droite
+		break;
+	case WindConfiguration::Oscillating:
+		// Vous pouvez utiliser une fonction sinusoïdale limitée à un certain angle pour osciller
+		mLastOrientation = pi / 6 * sin(mTotalTime);
+		break;
+	}
 }
 
 double Wind::windAmplitude() const
@@ -58,4 +72,20 @@ double Wind::yPower()
 double Wind::xPower()
 {
 	return mVecX;
+}
+
+void Wind::changeConfig()
+{
+	if (mWindConfig == WindConfiguration::Swirling)
+	{
+		mWindConfig = WindConfiguration::Horizontal;
+	}
+	else if (mWindConfig == WindConfiguration::Horizontal)
+	{
+		mWindConfig = WindConfiguration::Oscillating;
+	}
+	else
+	{
+		mWindConfig = WindConfiguration::Swirling;
+	}
 }

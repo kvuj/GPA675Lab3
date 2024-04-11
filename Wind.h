@@ -13,6 +13,11 @@ constexpr double maxAmplitude{ 10.0 };
 constexpr double pi{3.14};
 constexpr double scale{3.0};
 
+enum class WindConfiguration : uint8_t
+{
+	 Swirling, Horizontal, Oscillating
+};
+
 class Wind
 {
 public:
@@ -31,6 +36,7 @@ public:
 	double yPower();
 	double xPower();
 
+	void changeConfig();
 private:
 	QColor mCol;
 	QPolygon mPoly;
@@ -42,6 +48,7 @@ private:
 
 	double mVecX;
 	double mVecY;
+	WindConfiguration mWindConfig = WindConfiguration::Swirling;
 };
 
 #endif

@@ -66,6 +66,8 @@ private:
 	void key_space();
 	void key_enter();
 	void key_backSpace();
+	void key_tabulation();
+
 
 	void setTreeCount(int count);
 	void randomizeTreeCount(int min, int max);
