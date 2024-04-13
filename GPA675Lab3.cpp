@@ -47,9 +47,9 @@ GPA675Lab3::GPA675Lab3(QWidget* parent)
 
 
 	//Action pour le type d'arbres
-	keyActions[Qt::Key_Z] = [this]() { setTreeType(TreeType::Buisson); };
-	keyActions[Qt::Key_X] = [this]() { setTreeType(TreeType::Sapin); };
-	keyActions[Qt::Key_C] = [this]() { setTreeType(TreeType::Baobab); };
+	keyActions[Qt::Key_Z] = [this]() { setTreeType(Buisson); };
+	keyActions[Qt::Key_X] = [this]() { setTreeType(Sapin); };
+	keyActions[Qt::Key_C] = [this]() { setTreeType(Baobab); };
 	keyActions[Qt::Key_V] = [this]() { randomizeTreeType(); };
 
 	//Actions pour la profondeur de l'abres
@@ -161,6 +161,11 @@ void GPA675Lab3::setTreeCount(int count)
 	mParams.treeCount = count;
 }
 
+void GPA675Lab3::setTreeType(TreeConfiguration treeConfig)
+{
+	mTreeConfig = treeConfig;
+}
+
 void GPA675Lab3::randomizeTreeCount(int min, int max)
 {
 	std::uniform_int_distribution<> mDistrib(min, max);
@@ -168,10 +173,6 @@ void GPA675Lab3::randomizeTreeCount(int min, int max)
 
 }
 
-void GPA675Lab3::setTreeType(TreeType type)
-{
-	
-}
 
 void GPA675Lab3::randomizeTreeType()
 {
@@ -244,18 +245,13 @@ void GPA675Lab3::configurationDone(Parameters params)
 	std::uniform_real_distribution<> treeLocationX(100, width() - 100);
 	std::uniform_real_distribution<> treeLocationY(height() - plantingZoneHeight, height());
 
-	for (size_t i{}; i < params.treeCount; i++){
-		auto tree = std::make_unique<Baobab>(params.treeDepth,
-			childrenLambda,
-			attachDistLambda,
-			angleLambda,
-			lengthLambda,
-			widthBaseLambda,
-			widthPointLambda,
-			500.0, 40.0, 20.0,
-			treeLocationX(mGen),
-			treeLocationY(mGen), &mWind);
+	for (size_t i{}; i < params.treeCount; i++)
+	{
+		int posX = treeLocationX(mGen);
+		int posY = treeLocationY(mGen);
+		auto tree = std::make_unique<Tree>(mTreeConfig, posX, posY, &mWind, childrenLambda);
 		mForest.addTree(std::move(tree));
+		
 	}
 
 	show();

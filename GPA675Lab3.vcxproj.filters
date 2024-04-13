@@ -43,16 +43,13 @@
     <ClCompile Include="Wind.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Buisson.cpp">
-      <Filter>Source Files\Essence</Filter>
-    </ClCompile>
-    <ClCompile Include="Sapin.cpp">
-      <Filter>Source Files\Essence</Filter>
-    </ClCompile>
-    <ClCompile Include="Baobab.cpp">
-      <Filter>Source Files\Essence</Filter>
-    </ClCompile>
     <ClCompile Include="GPA675Lab3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeConfiguration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BranchConfiguration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,14 +69,11 @@
     <ClInclude Include="Wind.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Buisson.h">
-      <Filter>Header Files\Essence</Filter>
+    <ClInclude Include="TreeConfiguration.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sapin.h">
-      <Filter>Header Files\Essence</Filter>
-    </ClInclude>
-    <ClInclude Include="Baobab.h">
-      <Filter>Header Files\Essence</Filter>
+    <ClInclude Include="BranchConfiguration.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

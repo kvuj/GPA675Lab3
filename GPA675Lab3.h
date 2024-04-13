@@ -70,18 +70,22 @@ private:
 
 
 	void setTreeCount(int count);
+
+	void setTreeType(TreeConfiguration treeConfig);
+
 	void randomizeTreeCount(int min, int max);
 
-	void setTreeType(TreeType type);
 	void randomizeTreeType();
 	void setTreeDepth(int depth);
 
-
+	
 	void drawingSimulation(QPaintEvent* event);
 	void drawingHelp(QPaintEvent* event);
 	void resizeEvent(QResizeEvent* event);
 	double mPlantingArea =0.3; // 30% de la fenêtre est la zone de plantation
 	double  mTimeBeforePause=0.0;
+
+	TreeConfiguration mTreeConfig = Buisson;
 };
 
 #endif //GPA675LAB3_H

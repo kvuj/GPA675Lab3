@@ -2,6 +2,8 @@
 #ifndef BRANCH_H
 #define BRANCH_H
 
+#include "BranchConfiguration.h"
+
 #include <functional>
 #include <vector>
 
@@ -17,18 +19,10 @@
 class Branch
 {
 public:
-	Branch(size_t treeDepth
-		, std::function<size_t()> children
-		, Branch* parent
-		, std::function<double()> attachDist
-		, std::function<double()> angle
-		, std::function<double()> length
-		, std::function<double()> widthBase
-		, std::function<double()> widthPoint
-		, double lengthVal
-		, double widthBaseVal
-		, double widthPointVal
-		, size_t currentDepth);
+	Branch(const BranchConfiguration& config,
+		Branch* parent,
+		size_t currentDepth,
+		std::function<size_t()> children);
 	~Branch() = default;
 	Branch(const Branch& br) = delete;
 	Branch(Branch&& br) = default;
@@ -47,17 +41,15 @@ private:
 	double mLinearAttachDistance;		// % [0, 1]
 	double mAngleBetweenParent;			// RAD
 	double mAngleFromWind;				// RAD
-	double mVarLength;					// % [0, 1]
-	double mVarWidthBase;				// % [0, 1]
-	double mVarWidthPoint;				// % [0, 1]
-	
+	//double mVarLength;					// % [0, 1]
+	//double mVarWidthBase;				// % [0, 1]
+	//double mVarWidthPoint;	// % [0, 1]
 	
 	double mOrientation;				// RAD
 	double mLength;
 	double mWidthBase;
 	double mWidthPoint;
 	QColor mColor;
-
 	QPolygonF mPoly;
 };
 

@@ -1,52 +1,27 @@
 #include "Branch.h"
-
-Branch::Branch(size_t treeDepth
-	, std::function<size_t()> children
-	, Branch* parent
-	, std::function<double()> attachDist
-	, std::function<double()> angle
-	, std::function<double()> length
-	, std::function<double()> widthBase
-	, std::function<double()> widthPoint
-	, double lengthVal
-	, double widthBaseVal
-	, double widthPointVal
-	, size_t currentDepth)
+Branch::Branch(const BranchConfiguration& config,
+	Branch* parent,
+ size_t currentDepth, std::function<size_t()> children)
 	: mTreeDepth{ currentDepth }
-	, mChildrenCount{ children() }
 	, mParent{ parent }
-	, mLinearAttachDistance{ attachDist() }
-	, mAngleBetweenParent{ angle() }
-	, mAngleFromWind{}
-	, mVarLength{ length() }
-	, mVarWidthBase{ widthBase() }
-	, mVarWidthPoint{ widthPoint() }
-	, mLength{ lengthVal * mVarLength }
-	, mWidthBase{ widthBaseVal * mVarWidthBase }
-	, mWidthPoint{ widthPointVal * mVarWidthPoint }
-	, mPoly(4)
-	, mColor(139, 69, 19)
+	, mColor{ config.color }
+	, mLength{ config.length }
+	, mWidthBase{ config.widthBase }
+	, mWidthPoint{ config.widthPoint }
+	, mAngleFromWind{ 0.0 }
+	, mPoly{ 4 }
+	, mLinearAttachDistance{ config.attachDistance }
+	, mAngleBetweenParent{ config.angle }
 	, mOrientation{}
+	, mChildrenCount{ children()}
 {
 
-	if (mTreeDepth < treeDepth) {
+	if (mTreeDepth < currentDepth)
+	{
 		mChildren.reserve(mChildrenCount);
-
-		for (size_t i{}; i < mChildrenCount; i++) {
-			mChildren.emplace_back(new Branch(
-				treeDepth
-				, children
-				, this
-				, attachDist
-				, angle
-				, length
-				, widthBase
-				, widthPoint
-				, mLength / 1.5 // TODO: Non hard codé
-				, mWidthBase / 2.0
-				, mWidthPoint / 2.0
-				, mTreeDepth + 1
-			));
+		for (size_t i{}; i < mChildrenCount; i++)
+		{
+			mChildren.emplace_back(new Branch(config, this, mTreeDepth + 1,children));
 		}
 	}
 }

@@ -1,45 +1,23 @@
 #include "Tree.h"
 
-Tree::Tree(size_t treeDepth
-	, std::function<size_t()> children
-	, std::function<double()> attachDist
-	, std::function<double()> angle
-	, std::function<double()> length
-	, std::function<double()> widthBase
-	, std::function<double()> widthPoint
-	, double lengthVal
-	, double widthBaseVal
-	, double widthPointVal
-	, int positionX
-	, int positionY
-	, Wind* wind)
-	: mTrunk{ new Branch(treeDepth
-	, children
-	, nullptr
-	, attachDist
-	, angle
-	, length
-	, widthBase
-	, widthPoint
-	, lengthVal / 2.0
-	, widthBaseVal / 2.0
-	, widthPointVal / 2.0
-	, 0) }
-	, mBasePosition(positionX, positionY)
-	, mWind{ wind }
+
+Tree::Tree(const TreeConfiguration& config, int positionX, int positionY, Wind* wind, std::function<size_t()> children)
 {
+	mBasePosition = QPoint(positionX, positionY);
+	mWind = wind;
+	mTrunk = std::make_unique<Branch>(config.trunkConfig,nullptr,0,children);
 }
 
 Tree::~Tree()
 {
 }
 
-Tree::Tree(Tree&& tr) noexcept
+/*Tree::Tree(Tree&& tr) noexcept
 {
 	*this = std::move(tr);
-}
+}*/
 
-Tree& Tree::operator=(Tree&& tr) noexcept
+/*Tree& Tree::operator=(Tree&& tr) noexcept
 {
 	if (this != &tr) {
 		mTrunk.reset();
@@ -51,7 +29,7 @@ Tree& Tree::operator=(Tree&& tr) noexcept
 		mDeformationResistance = tr.mDeformationResistance;
 	}
 	return *this;
-}
+}*/
 
 void Tree::tic()
 {
@@ -73,12 +51,12 @@ void Tree::setColor(QColor color)
 
 void Tree::setDensity(double density)
 {
-	mDensity = density;
+	
 }
 
 void Tree::setDeformationResistance(double deformationResistance)
 {
-	mDeformationResistance = deformationResistance;
+	
 }
 
 QPoint Tree::getPosition() const
