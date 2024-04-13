@@ -3,6 +3,7 @@
 #define BRANCH_H
 
 #include "BranchConfiguration.h"
+#include "TreeConfiguration.h"
 
 #include <functional>
 #include <vector>
@@ -19,8 +20,9 @@
 class Branch
 {
 public:
-	Branch(const BranchConfiguration& config,
+	Branch(const TreeConfiguration& treeConfig,
 		Branch* parent,
+		size_t treeDepth,
 		size_t currentDepth,
 		std::function<size_t()> children);
 	~Branch() = default;
@@ -32,6 +34,8 @@ public:
 	void draw(QPainter* painter) const;
 	void updatePolygon(Wind* wind, double absoluteAngle);
 	void setColor(QColor color);
+
+	const BranchConfiguration& getConfigForChild() const;
 
 private:
 	size_t mTreeDepth;
@@ -51,6 +55,8 @@ private:
 	double mWidthPoint;
 	QColor mColor;
 	QPolygonF mPoly;
+
+	TreeConfiguration mTreeConfig;
 };
 
 #endif

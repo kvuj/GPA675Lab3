@@ -1,27 +1,40 @@
 #include "Branch.h"
-Branch::Branch(const BranchConfiguration& config,
+Branch::Branch(const TreeConfiguration& treeConfig,
 	Branch* parent,
- size_t currentDepth, std::function<size_t()> children)
+ size_t treeDepth, size_t currentDepth, std::function<size_t()> children)
 	: mTreeDepth{ currentDepth }
 	, mParent{ parent }
-	, mColor{ config.color }
-	, mLength{ config.length }
-	, mWidthBase{ config.widthBase }
-	, mWidthPoint{ config.widthPoint }
 	, mAngleFromWind{ 0.0 }
 	, mPoly{ 4 }
-	, mLinearAttachDistance{ config.attachDistance }
-	, mAngleBetweenParent{ config.angle }
 	, mOrientation{}
 	, mChildrenCount{ children()}
 {
 
-	if (mTreeDepth < currentDepth)
+	if (parent == nullptr)
+	{ 
+		mLength = treeConfig.trunkConfig.length;
+		mWidthBase = treeConfig.trunkConfig.widthBase;
+		mWidthPoint = treeConfig.trunkConfig.widthPoint;
+		mLinearAttachDistance = treeConfig.trunkConfig.attachDistance;
+		mAngleBetweenParent = treeConfig.trunkConfig.angle;
+		mColor = treeConfig.trunkConfig.color;
+	}
+	else
 	{
+		mLength = treeConfig.branchConfig.length;
+		mWidthBase = treeConfig.branchConfig.widthBase;
+		mWidthPoint = treeConfig.branchConfig.widthPoint;
+		mLinearAttachDistance = treeConfig.branchConfig.attachDistance;
+		mAngleBetweenParent = treeConfig.branchConfig.angle;
+		mColor = treeConfig.branchConfig.color;
+	}
+
+	if (mTreeDepth < treeDepth )
+	{
+		mChildrenCount = children();
 		mChildren.reserve(mChildrenCount);
-		for (size_t i{}; i < mChildrenCount; i++)
-		{
-			mChildren.emplace_back(new Branch(config, this, mTreeDepth + 1,children));
+		for (size_t i = 0; i < mChildrenCount; ++i) {
+			mChildren.emplace_back(new Branch(treeConfig,this,treeDepth,mTreeDepth + 1,children));
 		}
 	}
 }
@@ -73,4 +86,11 @@ void Branch::setColor(QColor color)
 	for (auto& child : mChildren) {
 		child->setColor(color);
 	}
+}
+
+
+const BranchConfiguration& Branch::getConfigForChild() const {
+	// Supposons que nous avons un membre TreeConfiguration dans Branch qui est défini quelque part lors de la construction.
+	// Nous retournerons branchConfig pour tous les enfants du tronc.
+	return mTreeConfig.branchConfig;
 }

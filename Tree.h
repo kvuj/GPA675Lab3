@@ -13,12 +13,12 @@
 class Tree
 {
 public:
-	Tree(const TreeConfiguration& config, int positionX, int positionY, Wind* wind, std::function<size_t()> children);
+	Tree(const TreeConfiguration& config, int positionX, int positionY, Wind* wind, size_t currentDepth, std::function<size_t()> children);
 	virtual ~Tree();
 	Tree(const Tree& tr) = delete;
-	/*Tree(Tree&& tr) noexcept;*/
+	Tree(Tree&& tr) noexcept;
 	Tree& operator=(const Tree& tr) = delete;
-	/*Tree& operator=(Tree&& tr) noexcept;*/
+	Tree& operator=(Tree&& tr) noexcept;
 
 	virtual void tic();
 	virtual void draw(QPainter* painter) const;

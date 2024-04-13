@@ -249,7 +249,8 @@ void GPA675Lab3::configurationDone(Parameters params)
 	{
 		int posX = treeLocationX(mGen);
 		int posY = treeLocationY(mGen);
-		auto tree = std::make_unique<Tree>(mTreeConfig, posX, posY, &mWind, childrenLambda);
+		
+		auto tree = std::make_unique<Tree>(mTreeConfig, posX, posY, &mWind,params.treeDepth ,childrenLambda);
 		mForest.addTree(std::move(tree));
 		
 	}

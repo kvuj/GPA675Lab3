@@ -1,11 +1,11 @@
 #include "Tree.h"
 
 
-Tree::Tree(const TreeConfiguration& config, int positionX, int positionY, Wind* wind, std::function<size_t()> children)
+Tree::Tree(const TreeConfiguration& config, int positionX, int positionY, Wind* wind, size_t treeDepth, std::function<size_t()> children )
 {
 	mBasePosition = QPoint(positionX, positionY);
 	mWind = wind;
-	mTrunk = std::make_unique<Branch>(config.trunkConfig,nullptr,0,children);
+	mTrunk = std::make_unique<Branch>(config ,nullptr,treeDepth,0,children);
 }
 
 Tree::~Tree()
