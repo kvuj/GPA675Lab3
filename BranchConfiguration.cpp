@@ -8,10 +8,10 @@
     double orientation;
     QColor color;*/
 const BranchConfiguration BuissonConfig =
-{ 2.0,2.0,2.0,2.0,2.0,0.5,QColor(173, 255, 47) };
+{ 15.0,10.0,5.0,0.5,15.0,0.0,QColor(173, 255, 47) };
 
 const BranchConfiguration TrunkBuissonConfig =
-{ 25.0,10.0,5.0,0.0,0.0,0,QColor(173, 255, 47) };
+{ 40.0,20.0,15.0,0.0,0.0,0,QColor(173, 255, 47) };
 
 const BranchConfiguration SapinConfig =
 { 2.0,2.0,2.0,2.0,2.0,2.0,QColor(9, 82, 40) };
