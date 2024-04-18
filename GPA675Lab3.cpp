@@ -47,9 +47,9 @@ GPA675Lab3::GPA675Lab3(QWidget* parent)
 
 
 	//Action pour le type d'arbres
-	keyActions[Qt::Key_Z] = [this]() { setTreeType(Buisson); };
-	keyActions[Qt::Key_X] = [this]() { setTreeType(Sapin); };
-	keyActions[Qt::Key_C] = [this]() { setTreeType(Baobab); };
+	keyActions[Qt::Key_Z] = [this]() { setTreeType(TreeType::Buisson); };
+	keyActions[Qt::Key_X] = [this]() { setTreeType(TreeType::Sapin); };
+	keyActions[Qt::Key_C] = [this]() { setTreeType(TreeType::Baobab); };
 	keyActions[Qt::Key_V] = [this]() { randomizeTreeType(); };
 
 	//Actions pour la profondeur de l'abres
@@ -105,6 +105,17 @@ void GPA675Lab3::tic()
 	{
 		double elapsedTime{ mElapsedTimer.restart() / 1.0e3 };
 
+		if (!mVirus && mVirusTimer.hasExpired(mTimeVirus))
+		{
+			mVirus = true;
+			// Infecter un arbre aléatoire dans la forêt
+			mForest.infectTree();
+		}
+
+		if (mVirus)
+		{
+			mForest.updateInfection(elapsedTime);
+		}
 		mForest.update(elapsedTime);
 		mWind.computeWind(elapsedTime);
 		mTimeBeforePause = 0.0;
@@ -112,7 +123,7 @@ void GPA675Lab3::tic()
 	}
 
 	repaint();
-	mTimer.start(16);
+	mTimer.start();
 }
 
 void GPA675Lab3::key_h()
@@ -141,6 +152,7 @@ void GPA675Lab3::key_space()
 void GPA675Lab3::key_enter()
 {
 	mState = DrawingType::Simulation;
+	mVirusTimer.start();
 }
 // Reset la simulation avec la configuration actuelle
 void GPA675Lab3::key_backSpace()
@@ -153,17 +165,11 @@ void GPA675Lab3::key_backSpace()
 void GPA675Lab3::key_tabulation()
 {
 	mWind.changeConfig();
-	mWind.computeWind(mElapsedTimer.restart());
 }
 
 void GPA675Lab3::setTreeCount(int count)
 {
 	mParams.treeCount = count;
-}
-
-void GPA675Lab3::setTreeType(TreeConfiguration treeConfig)
-{
-	mTreeConfig = treeConfig;
 }
 
 void GPA675Lab3::randomizeTreeCount(int min, int max)
@@ -173,6 +179,10 @@ void GPA675Lab3::randomizeTreeCount(int min, int max)
 
 }
 
+void GPA675Lab3::setTreeType(TreeType type)
+{
+	
+}
 
 void GPA675Lab3::randomizeTreeType()
 {
@@ -247,12 +257,17 @@ void GPA675Lab3::configurationDone(Parameters params)
 
 	for (size_t i{}; i < params.treeCount; i++)
 	{
-		int posX = treeLocationX(mGen);
-		int posY = treeLocationY(mGen);
-		
-		auto tree = std::make_unique<Tree>(mTreeConfig, posX, posY, &mWind,params.treeDepth ,childrenLambda);
+		auto tree = std::make_unique<Sapin>(params.treeDepth,
+			childrenLambda,
+			attachDistLambda,
+			angleLambda,
+			lengthLambda,
+			widthBaseLambda,
+			widthPointLambda,
+			500.0, 40.0, 20.0,
+			treeLocationX(mGen),
+			treeLocationY(mGen), &mWind);
 		mForest.addTree(std::move(tree));
-		
 	}
 
 	show();

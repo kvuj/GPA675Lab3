@@ -1,40 +1,52 @@
 #include "Branch.h"
-Branch::Branch(const TreeConfiguration& treeConfig,
-	Branch* parent,
- size_t treeDepth, size_t currentDepth, std::function<size_t()> children)
+
+Branch::Branch(size_t treeDepth
+	, std::function<size_t()> children
+	, Branch* parent
+	, std::function<double()> attachDist
+	, std::function<double()> angle
+	, std::function<double()> length
+	, std::function<double()> widthBase
+	, std::function<double()> widthPoint
+	, double lengthVal
+	, double widthBaseVal
+	, double widthPointVal
+	, size_t currentDepth)
 	: mTreeDepth{ currentDepth }
+	, mChildrenCount{ children() }
 	, mParent{ parent }
-	, mAngleFromWind{ 0.0 }
-	, mPoly{ 4 }
+	, mLinearAttachDistance{ attachDist() }
+	, mAngleBetweenParent{ angle() }
+	, mAngleFromWind{}
+	, mVarLength{ length() }
+	, mVarWidthBase{ widthBase() }
+	, mVarWidthPoint{ widthPoint() }
+	, mLength{ lengthVal * mVarLength }
+	, mWidthBase{ widthBaseVal * mVarWidthBase }
+	, mWidthPoint{ widthPointVal * mVarWidthPoint }
+	, mPoly(4)
+	, mColor(139, 69, 19)
 	, mOrientation{}
-	, mChildrenCount{ children()}
 {
 
-	if (parent == nullptr)
-	{ 
-		mLength = treeConfig.trunkConfig.length;
-		mWidthBase = treeConfig.trunkConfig.widthBase;
-		mWidthPoint = treeConfig.trunkConfig.widthPoint;
-		mLinearAttachDistance = treeConfig.trunkConfig.attachDistance;
-		mAngleBetweenParent = treeConfig.trunkConfig.angle;
-		mColor = treeConfig.trunkConfig.color;
-	}
-	else
-	{
-		mLength = treeConfig.branchConfig.length;
-		mWidthBase = treeConfig.branchConfig.widthBase;
-		mWidthPoint = treeConfig.branchConfig.widthPoint;
-		mLinearAttachDistance = treeConfig.branchConfig.attachDistance;
-		mAngleBetweenParent = treeConfig.branchConfig.angle;
-		mColor = treeConfig.branchConfig.color;
-	}
-
-	if (mTreeDepth < treeDepth )
-	{
-		mChildrenCount = children();
+	if (mTreeDepth < treeDepth) {
 		mChildren.reserve(mChildrenCount);
-		for (size_t i = 0; i < mChildrenCount; ++i) {
-			mChildren.emplace_back(new Branch(treeConfig,this,treeDepth,mTreeDepth + 1,children));
+
+		for (size_t i{}; i < mChildrenCount; i++) {
+			mChildren.emplace_back(new Branch(
+				treeDepth
+				, children
+				, this
+				, attachDist
+				, angle
+				, length
+				, widthBase
+				, widthPoint
+				, mLength / 1.5 // TODO: Non hard codé
+				, mWidthBase / 2.0
+				, mWidthPoint / 2.0
+				, mTreeDepth + 1
+			));
 		}
 	}
 }
@@ -88,9 +100,99 @@ void Branch::setColor(QColor color)
 	}
 }
 
+void Branch::isKilled()
+{
+	isAlive = false;
+}
 
-const BranchConfiguration& Branch::getConfigForChild() const {
-	// Supposons que nous avons un membre TreeConfiguration dans Branch qui est défini quelque part lors de la construction.
-	// Nous retournerons branchConfig pour tous les enfants du tronc.
-	return mTreeConfig.branchConfig;
+bool Branch::isInfectable() const
+{
+	//on peut infecter seulement les branches non infected
+	return !isInfected && !mChildren.empty();
+}
+
+void Branch::infect()
+{
+	if (isInfectable()) {
+		isInfected = true;
+		mColor = Qt::gray;
+	}
+}
+
+void Branch::infectDeepest()
+{
+	if (mChildren.empty())
+	{
+		this->infect();
+	}
+	else
+	{
+		// Autrement, trouvez l'enfant le plus profond et commencez l'infection là-bas
+		Branch* deepestBranch = nullptr;
+		int maxDepth = 0;
+		for (auto& child : mChildren)
+		{
+			int childDepth = child->getMaxDepth();
+			if (childDepth > maxDepth)
+			{
+				maxDepth = childDepth-1;
+				deepestBranch = child.get();
+			}
+		}
+		if (deepestBranch) {
+			deepestBranch->infectDeepest();
+		}
+	}
+}
+
+void Branch::updateInfection(double time)
+{
+	if (isInfected)
+	{
+		mInfectionProgress += time; // Progression basée sur le temps réel
+		// Quand la progression atteint un certain seuil, vous pouvez propager l'infection
+		if (mInfectionProgress >= 1.0)
+		{
+			// Propager l'infection aux branches enfants
+			for (auto& child : mChildren)
+			{
+				if (!child->isInfected) 
+				{
+					child->infect();
+				}
+			}
+			// Réinitialiser le progrès ou le laisser croître pour propager à nouveau
+			// mInfectionProgress = 0.0;
+		}
+		
+		//on applique du gris
+		int greyValue = static_cast<int>(255 * (1 - mInfectionProgress));
+		mColor.setRgb(greyValue, greyValue, greyValue);
+	}
+	for (auto& child : mChildren)
+	{
+		child->updateInfection(time);
+	}
+
+}
+
+int Branch::getMaxDepth() const
+{
+	if (mChildren.empty())
+	{
+		return mChildrenCount;
+	}
+	else
+	{
+		int maxDepth = 0;
+		for (const auto& child : mChildren)
+		{
+			int childDepth = child->getMaxDepth();
+			if (childDepth > maxDepth)
+			{
+				maxDepth = childDepth;
+			}
+		}
+		return maxDepth;
+	}
 }

@@ -26,12 +26,13 @@ void Wind::computeWind(double elapsedTime)
 		mVecY = cos(mLastOrientation);
 		break;
 	case WindConfiguration::Horizontal:
-		mLastAmplitude = maxAmplitude; // ou une autre logique pour l'intensité
-		mLastOrientation = 0; // Vent horizontal vers la droite
+		mLastAmplitude = sin(mTotalTime) * maxAmplitude; // ou une autre logique pour l'intensité
+		mLastOrientation = 90*(pi/180); // Vent horizontal vers la droite
 		break;
 	case WindConfiguration::Oscillating:
-		// Vous pouvez utiliser une fonction sinusoïdale limitée à un certain angle pour osciller
+		
 		mLastOrientation = pi / 6 * sin(mTotalTime);
+		mLastAmplitude = sin(mTotalTime) * maxAmplitude;
 		break;
 	}
 }

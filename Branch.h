@@ -2,9 +2,6 @@
 #ifndef BRANCH_H
 #define BRANCH_H
 
-#include "BranchConfiguration.h"
-#include "TreeConfiguration.h"
-
 #include <functional>
 #include <vector>
 
@@ -20,11 +17,18 @@
 class Branch
 {
 public:
-	Branch(const TreeConfiguration& treeConfig,
-		Branch* parent,
-		size_t treeDepth,
-		size_t currentDepth,
-		std::function<size_t()> children);
+	Branch(size_t treeDepth
+		, std::function<size_t()> children
+		, Branch* parent
+		, std::function<double()> attachDist
+		, std::function<double()> angle
+		, std::function<double()> length
+		, std::function<double()> widthBase
+		, std::function<double()> widthPoint
+		, double lengthVal
+		, double widthBaseVal
+		, double widthPointVal
+		, size_t currentDepth);
 	~Branch() = default;
 	Branch(const Branch& br) = delete;
 	Branch(Branch&& br) = default;
@@ -35,8 +39,16 @@ public:
 	void updatePolygon(Wind* wind, double absoluteAngle);
 	void setColor(QColor color);
 
-	const BranchConfiguration& getConfigForChild() const;
 
+	bool isStillAlive() const { return isAlive; }
+	void isKilled();
+	std::vector<std::unique_ptr<Branch>>& getChildren() { return mChildren; }
+	
+	bool isInfectable() const;
+	void infect();
+	void infectDeepest();
+	void updateInfection(double time);
+	int getMaxDepth() const;
 private:
 	size_t mTreeDepth;
 	size_t mChildrenCount;
@@ -45,18 +57,23 @@ private:
 	double mLinearAttachDistance;		// % [0, 1]
 	double mAngleBetweenParent;			// RAD
 	double mAngleFromWind;				// RAD
-	//double mVarLength;					// % [0, 1]
-	//double mVarWidthBase;				// % [0, 1]
-	//double mVarWidthPoint;	// % [0, 1]
+	double mVarLength;					// % [0, 1]
+	double mVarWidthBase;				// % [0, 1]
+	double mVarWidthPoint;				// % [0, 1]
+	
 	
 	double mOrientation;				// RAD
 	double mLength;
 	double mWidthBase;
 	double mWidthPoint;
 	QColor mColor;
+
 	QPolygonF mPoly;
 
-	TreeConfiguration mTreeConfig;
+	bool isAlive = true;
+	bool isInfected = false;
+	double mInfectionProgress = 0.0;
 };
+
 
 #endif

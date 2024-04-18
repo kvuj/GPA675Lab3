@@ -10,6 +10,7 @@
 #include "Branch.h"
 #include "Wind.h"
 
+
 class Tree
 {
 public:
@@ -29,6 +30,8 @@ public:
 	virtual void setPosition(QPoint position);
 	virtual void setLength(double length);
 
+	void infect(); // Méthode pour infecter l'arbre
+	void updateInfection(double deltaTime);
 private:
 	std::unique_ptr<Branch> mTrunk;
 	QPoint mBasePosition;
