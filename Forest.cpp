@@ -80,3 +80,17 @@ void Forest::updateTreePositions(int windowHeight, float plantingArea)
 	}
 }
 
+void Forest::infectTree()
+{
+	if (!mTrees.empty()) {
+		mTrees.front()->infect();
+	}
+}
+
+void Forest::updateInfection(double time)
+{
+	for (auto& tree : mTrees) {
+		tree->updateInfection(time); // Supposer que Tree a une méthode pour mettre à jour l'infection
+	}
+}
+

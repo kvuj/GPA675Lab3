@@ -39,6 +39,16 @@ public:
 	void updatePolygon(Wind* wind, double absoluteAngle);
 	void setColor(QColor color);
 
+
+	bool isStillAlive() const { return isAlive; }
+	void isKilled();
+	std::vector<std::unique_ptr<Branch>>& getChildren() { return mChildren; }
+	
+	bool isInfectable() const;
+	void infect();
+	void infectDeepest();
+	void updateInfection(double time);
+	int getMaxDepth() const;
 private:
 	size_t mTreeDepth;
 	size_t mChildrenCount;
@@ -59,6 +69,11 @@ private:
 	QColor mColor;
 
 	QPolygonF mPoly;
+
+	bool isAlive = true;
+	bool isInfected = false;
+	double mInfectionProgress = 0.0;
 };
+
 
 #endif

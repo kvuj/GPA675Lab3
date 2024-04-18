@@ -99,3 +99,100 @@ void Branch::setColor(QColor color)
 		child->setColor(color);
 	}
 }
+
+void Branch::isKilled()
+{
+	isAlive = false;
+}
+
+bool Branch::isInfectable() const
+{
+	//on peut infecter seulement les branches non infected
+	return !isInfected && !mChildren.empty();
+}
+
+void Branch::infect()
+{
+	if (isInfectable()) {
+		isInfected = true;
+		mColor = Qt::gray;
+	}
+}
+
+void Branch::infectDeepest()
+{
+	if (mChildren.empty())
+	{
+		this->infect();
+	}
+	else
+	{
+		// Autrement, trouvez l'enfant le plus profond et commencez l'infection là-bas
+		Branch* deepestBranch = nullptr;
+		int maxDepth = 0;
+		for (auto& child : mChildren)
+		{
+			int childDepth = child->getMaxDepth();
+			if (childDepth > maxDepth)
+			{
+				maxDepth = childDepth-1;
+				deepestBranch = child.get();
+			}
+		}
+		if (deepestBranch) {
+			deepestBranch->infectDeepest();
+		}
+	}
+}
+
+void Branch::updateInfection(double time)
+{
+	if (isInfected)
+	{
+		mInfectionProgress += time; // Progression basée sur le temps réel
+		// Quand la progression atteint un certain seuil, vous pouvez propager l'infection
+		if (mInfectionProgress >= 1.0)
+		{
+			// Propager l'infection aux branches enfants
+			for (auto& child : mChildren)
+			{
+				if (!child->isInfected) 
+				{
+					child->infect();
+				}
+			}
+			// Réinitialiser le progrès ou le laisser croître pour propager à nouveau
+			// mInfectionProgress = 0.0;
+		}
+		
+		//on applique du gris
+		int greyValue = static_cast<int>(255 * (1 - mInfectionProgress));
+		mColor.setRgb(greyValue, greyValue, greyValue);
+	}
+	for (auto& child : mChildren)
+	{
+		child->updateInfection(time);
+	}
+
+}
+
+int Branch::getMaxDepth() const
+{
+	if (mChildren.empty())
+	{
+		return mChildrenCount;
+	}
+	else
+	{
+		int maxDepth = 0;
+		for (const auto& child : mChildren)
+		{
+			int childDepth = child->getMaxDepth();
+			if (childDepth > maxDepth)
+			{
+				maxDepth = childDepth;
+			}
+		}
+		return maxDepth;
+	}
+}

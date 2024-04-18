@@ -105,6 +105,17 @@ void GPA675Lab3::tic()
 	{
 		double elapsedTime{ mElapsedTimer.restart() / 1.0e3 };
 
+		if (!mVirus && mVirusTimer.hasExpired(mTimeVirus))
+		{
+			mVirus = true;
+			// Infecter un arbre aléatoire dans la forêt
+			mForest.infectTree();
+		}
+
+		if (mVirus)
+		{
+			mForest.updateInfection(elapsedTime);
+		}
 		mForest.update(elapsedTime);
 		mWind.computeWind(elapsedTime);
 		mTimeBeforePause = 0.0;
@@ -112,7 +123,7 @@ void GPA675Lab3::tic()
 	}
 
 	repaint();
-	mTimer.start(16);
+	mTimer.start();
 }
 
 void GPA675Lab3::key_h()
@@ -141,6 +152,7 @@ void GPA675Lab3::key_space()
 void GPA675Lab3::key_enter()
 {
 	mState = DrawingType::Simulation;
+	mVirusTimer.start();
 }
 // Reset la simulation avec la configuration actuelle
 void GPA675Lab3::key_backSpace()
@@ -153,7 +165,6 @@ void GPA675Lab3::key_backSpace()
 void GPA675Lab3::key_tabulation()
 {
 	mWind.changeConfig();
-	mWind.computeWind(mElapsedTimer.restart());
 }
 
 void GPA675Lab3::setTreeCount(int count)
@@ -244,8 +255,9 @@ void GPA675Lab3::configurationDone(Parameters params)
 	std::uniform_real_distribution<> treeLocationX(100, width() - 100);
 	std::uniform_real_distribution<> treeLocationY(height() - plantingZoneHeight, height());
 
-	for (size_t i{}; i < params.treeCount; i++){
-		auto tree = std::make_unique<Baobab>(params.treeDepth,
+	for (size_t i{}; i < params.treeCount; i++)
+	{
+		auto tree = std::make_unique<Sapin>(params.treeDepth,
 			childrenLambda,
 			attachDistLambda,
 			angleLambda,

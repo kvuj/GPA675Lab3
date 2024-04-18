@@ -37,10 +37,16 @@ public:
 	void clear(); // Efface les arbres de la foret 
 	void updateTreePositions(int windowHeight, float plantingArea);
 
+	void infectTree();
+	void updateInfection(double time);
+
+
 private:
 	std::vector<std::unique_ptr<Tree>> mTrees;
 	TreeType mTreeTypeConfig; // Configuration de type d'arbre pour la forêt
 	bool mUseMixedEssence; // Indique si la forêt utilise un mélange d'essences d'arbres
+
+
 
 	// Pour créer un arbre d'une essence spécifique
 	std::unique_ptr<Tree> createTreeOfType(TreeType type);

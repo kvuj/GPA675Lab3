@@ -56,6 +56,7 @@ private:
 	
 	QTimer mTimer;
 	QElapsedTimer mElapsedTimer;
+	QElapsedTimer mVirusTimer;
 	QFont mFont;
 
 	std::random_device mRd;
@@ -82,6 +83,8 @@ private:
 	void resizeEvent(QResizeEvent* event);
 	double mPlantingArea =0.3; // 30% de la fenêtre est la zone de plantation
 	double  mTimeBeforePause=0.0;
+	bool mVirus = false;
+	qint64 mTimeVirus = 10000;
 };
 
 #endif //GPA675LAB3_H

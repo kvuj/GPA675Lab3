@@ -95,3 +95,21 @@ void Tree::setLength(double length)
 {
 
 }
+
+void Tree::infect()
+{
+	if (mTrunk)
+	{
+		mTrunk->infectDeepest();
+	}
+
+}
+
+void Tree::updateInfection(double deltaTime)
+{
+	if (mTrunk)
+	{
+		mTrunk->updateInfection(deltaTime);
+	}
+
+}
