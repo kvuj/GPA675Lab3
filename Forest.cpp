@@ -2,7 +2,7 @@
 
 Forest::Forest()
 {
-	mUseMixedEssence = false;
+	mTreeTypeConfig = TreeType::Buisson;
 }
 
 void Forest::addTree(std::unique_ptr<Tree> tree)
@@ -10,12 +10,48 @@ void Forest::addTree(std::unique_ptr<Tree> tree)
 	mTrees.push_back(std::move(tree));
 }
 
+void Forest::addSpecificTree(TreeType type, size_t treeDepth,
+	std::function<size_t()> children,
+	std::function<double()> attachDist,
+	std::function<double()> angle,
+	std::function<double()> length,
+	std::function<double()> widthBase,
+	std::function<double()> widthPoint,
+	double lengthVal,
+	double widthBaseVal,
+	double widthPointVal,
+	int positionX,
+	int positionY,
+	Wind* wind)
+{
+	std::unique_ptr<Tree> tree;
+	switch (type) {
+	case TreeType::Buisson:
+		tree = std::make_unique<Buisson>(treeDepth,children,
+			attachDist,
+			angle,length,widthBase,widthPoint,lengthVal,widthBaseVal,widthPointVal,positionX,positionY,wind);
+		break;
+	case TreeType::Sapin:
+		tree = std::make_unique<Sapin>(treeDepth, children,
+			attachDist,
+			angle, length, widthBase, widthPoint, lengthVal, widthBaseVal, widthPointVal, positionX, positionY, wind);
+		break;
+	case TreeType::Baobab:
+		tree = std::make_unique<Baobab>(treeDepth, children,
+			attachDist,
+			angle, length, widthBase, widthPoint, lengthVal, widthBaseVal, widthPointVal, positionX, positionY, wind);
+		break;
+	default:
+		break;
+	}
+	if (tree) {
+		mTrees.push_back(std::move(tree));
+	}
+}
 
 void Forest::randomizeTrees()
 {
-	clear(); // Effacer les arbres existants avant de randomiser
 
-	
 }
 
 void Forest::update(double elapsedTime)

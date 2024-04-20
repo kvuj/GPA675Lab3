@@ -148,7 +148,6 @@ void Branch::updateInfection()
 {
 	if (isInfected)
 	{
-
 		// Infection des branches adjacentes
 		if (mParent && !mParent->isInfected)
 		{
