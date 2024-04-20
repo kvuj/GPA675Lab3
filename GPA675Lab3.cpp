@@ -29,14 +29,14 @@ GPA675Lab3::GPA675Lab3(QWidget* parent)
 	setAutoFillBackground(true);
 	setPalette(pal);
 
-	//Actinos in game
+	// Actions in game
 	keyActions[Qt::Key_H] = [this]() { key_h(); };
 	keyActions[Qt::Key_Space] = [this]() { key_space(); };
 	keyActions[Qt::Key_Return] = [this]() { key_enter(); };
 	keyActions[Qt::Key_Enter] = [this]() { key_enter(); };
 	keyActions[Qt::Key_Backspace] = [this]() { key_backSpace(); };
 	keyActions[Qt::Key_Tab] = [this]() { key_tabulation(); };
-	//Actions pour le nombre d'arbres
+	// Actions pour le nombre d'arbres
 	for (int key = Qt::Key_1; key <= Qt::Key_9; ++key)
 	{
 		keyActions[key] = [this, key]() { setTreeCount(key - Qt::Key_0); };
@@ -54,8 +54,8 @@ GPA675Lab3::GPA675Lab3(QWidget* parent)
 		{Qt::Key_C, TreeType::Baobab},
 		{Qt::Key_V, TreeType::Random},
 	};
-	//Actions pour la profondeur de l'abres
-	mKeyDepth = 
+	// Actions pour la profondeur de l'arbres
+	mKeyDepth =
 	{
 		{Qt::Key_Q, 2},
 		{Qt::Key_W, 3},
@@ -64,12 +64,8 @@ GPA675Lab3::GPA675Lab3(QWidget* parent)
 		{Qt::Key_T, 6},
 		{Qt::Key_Y, 7},
 		{Qt::Key_U, 8},
-		{Qt::Key_I, 9},
-		
-
+		{Qt::Key_I, 9}
 	};
-
-
 
 	mDrawingActions[DrawingType::Simulation] = &GPA675Lab3::drawingSimulation;
 	mDrawingActions[DrawingType::Help] = &GPA675Lab3::drawingHelp;
@@ -102,7 +98,7 @@ void GPA675Lab3::keyPressEvent(QKeyEvent* event)
 	{
 		setTreeType(mKeyTreeType[key]);
 	}
-	
+
 }
 
 void GPA675Lab3::tic()
@@ -180,6 +176,7 @@ void GPA675Lab3::key_tabulation()
 void GPA675Lab3::setTreeCount(int count)
 {
 	mParams.treeCount = count;
+	configurationDone(mParams);
 }
 
 void GPA675Lab3::randomizeTreeCount(int min, int max)
@@ -191,15 +188,13 @@ void GPA675Lab3::randomizeTreeCount(int min, int max)
 
 void GPA675Lab3::setTreeType(TreeType type)
 {
-	
 	mParams.treeType = type;
-
 }
 
 
 void GPA675Lab3::setTreeDepth(int depth)
 {
-		mParams.treeDepth = depth;
+	mParams.treeDepth = depth;
 }
 
 void GPA675Lab3::drawingSimulation(QPaintEvent* event)
@@ -229,6 +224,7 @@ void GPA675Lab3::drawingHelp(QPaintEvent* event)
 	paint.drawText(100, 125, "Space: Pause/Play");
 	paint.drawText(100, 150, "Enter: Simulation");
 	paint.drawText(100, 175, "Backspace: Reset la simulation");
+	paint.drawText(100, 200, "0-9: Change le nombre d'arbres");
 }
 
 void GPA675Lab3::configurationDone(Parameters params)
