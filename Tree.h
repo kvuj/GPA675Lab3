@@ -31,7 +31,7 @@ public:
 	virtual void setLength(double length);
 
 	void infect(); // Méthode pour infecter l'arbre
-	void updateInfection(double deltaTime);
+	void updateInfection();
 private:
 	std::unique_ptr<Branch> mTrunk;
 	QPoint mBasePosition;

@@ -83,11 +83,11 @@ void Tree::infect()
 
 }
 
-void Tree::updateInfection(double deltaTime)
+void Tree::updateInfection()
 {
 	if (mTrunk)
 	{
-		mTrunk->updateInfection(deltaTime);
+		mTrunk->updateInfection();
 	}
 
 }

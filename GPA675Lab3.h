@@ -84,7 +84,7 @@ private:
 	double mPlantingArea =0.3; // 30% de la fenêtre est la zone de plantation
 	double  mTimeBeforePause=0.0;
 	bool mVirus = false;
-	qint64 mTimeVirus = 10000;
+	qint64 mTimeVirus = 2000;
 };
 
 #endif //GPA675LAB3_H

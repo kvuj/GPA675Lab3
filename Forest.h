@@ -38,7 +38,7 @@ public:
 	void updateTreePositions(int windowHeight, float plantingArea);
 
 	void infectTree();
-	void updateInfection(double time);
+	void updateInfection();
 
 
 private:
