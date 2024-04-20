@@ -48,7 +48,7 @@ private:
 	Forest mForest;
 
 
-	//Mapage des touches et des actions
+	// Mapping des touches et des actions
 	using Action = std::function<void()>;
 	std::unordered_map<int, Action> keyActions;
 	std::unordered_map<DrawingType, DrawingAction> mDrawingActions;
