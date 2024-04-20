@@ -25,6 +25,11 @@ void Forest::addSpecificTree(TreeType type, size_t treeDepth,
 	Wind* wind)
 {
 	std::unique_ptr<Tree> tree;
+	if (type == TreeType::Random) {
+		std::vector<TreeType> types = { TreeType::Baobab, TreeType::Buisson, TreeType::Sapin };
+		std::uniform_int_distribution<> dist(0, types.size() - 1);
+		type = types[dist(mGen)];  // Choisissez aléatoirement un type, sauf Random
+	}
 	switch (type) {
 	case TreeType::Buisson:
 		tree = std::make_unique<Buisson>(treeDepth,children,
