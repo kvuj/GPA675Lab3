@@ -52,6 +52,7 @@ GPA675Lab3::GPA675Lab3(QWidget* parent)
 		{Qt::Key_Z, TreeType::Buisson},
 		{Qt::Key_X, TreeType::Sapin},
 		{Qt::Key_C, TreeType::Baobab},
+		{Qt::Key_V, TreeType::Random},
 	};
 	//Actions pour la profondeur de l'abres
 	mKeyDepth = 

@@ -13,7 +13,7 @@
 // Essence d'arbre
 enum class TreeType : uint8_t
 {
-	Baobab, Buisson, Sapin
+	Baobab, Buisson, Sapin,Random
 };
 
 class Forest
@@ -57,6 +57,7 @@ private:
 	std::vector<std::unique_ptr<Tree>> mTrees;
 	TreeType mTreeTypeConfig; // Configuration de type d'arbre pour la forêt
 
+	std::mt19937 mGen;
 };
 
 #endif
