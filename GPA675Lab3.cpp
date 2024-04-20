@@ -46,12 +46,13 @@ GPA675Lab3::GPA675Lab3(QWidget* parent)
 	keyActions[Qt::Key_Equal] = [this]() { randomizeTreeCount(4, 10); };
 
 
-	//Action pour le type d'arbres
-	keyActions[Qt::Key_Z] = [this]() { setTreeType(TreeType::Buisson); };
-	keyActions[Qt::Key_X] = [this]() { setTreeType(TreeType::Sapin); };
-	keyActions[Qt::Key_C] = [this]() { setTreeType(TreeType::Baobab); };
-	keyActions[Qt::Key_V] = [this]() { randomizeTreeType(); };
 
+	mKeyTreeType =
+	{
+		{Qt::Key_Z, TreeType::Buisson},
+		{Qt::Key_X, TreeType::Sapin},
+		{Qt::Key_C, TreeType::Baobab},
+	};
 	//Actions pour la profondeur de l'abres
 	mKeyDepth = 
 	{
@@ -86,17 +87,21 @@ void GPA675Lab3::paintEvent(QPaintEvent* event)
 
 void GPA675Lab3::keyPressEvent(QKeyEvent* event)
 {
-	//if (mKeyboardActions.contains(static_cast<Qt::Key>(event->key())))
-		//std::invoke(mKeyboardActions[static_cast<Qt::Key>(event->key())], this);
 
 	auto key = event->key();
-	if (keyActions.find(key) != keyActions.end()) {
+	if (keyActions.find(key) != keyActions.end())
+	{
 		keyActions[key]();
 	}
-	else if (mKeyDepth.find(key) != mKeyDepth.end()) {
+	else if (mKeyDepth.find(key) != mKeyDepth.end())
+	{
 		setTreeDepth(mKeyDepth[key]);
 	}
-
+	else if (mKeyTreeType.find(key) != mKeyTreeType.end())
+	{
+		setTreeType(mKeyTreeType[key]);
+	}
+	
 }
 
 void GPA675Lab3::tic()
@@ -186,12 +191,10 @@ void GPA675Lab3::randomizeTreeCount(int min, int max)
 void GPA675Lab3::setTreeType(TreeType type)
 {
 	
+	mParams.treeType = type;
+
 }
 
-void GPA675Lab3::randomizeTreeType()
-{
-	mForest.randomizeTrees();
-}
 
 void GPA675Lab3::setTreeDepth(int depth)
 {
@@ -261,7 +264,7 @@ void GPA675Lab3::configurationDone(Parameters params)
 
 	for (size_t i{}; i < params.treeCount; i++)
 	{
-		auto tree = std::make_unique<Sapin>(params.treeDepth,
+		mForest.addSpecificTree(mParams.treeType, params.treeDepth,
 			childrenLambda,
 			attachDistLambda,
 			angleLambda,
@@ -271,7 +274,6 @@ void GPA675Lab3::configurationDone(Parameters params)
 			500.0, 40.0, 20.0,
 			treeLocationX(mGen),
 			treeLocationY(mGen), &mWind);
-		mForest.addTree(std::move(tree));
 	}
 
 	show();

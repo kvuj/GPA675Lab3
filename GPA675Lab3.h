@@ -53,6 +53,7 @@ private:
 	std::unordered_map<int, Action> keyActions;
 	std::unordered_map<DrawingType, DrawingAction> mDrawingActions;
 	std::unordered_map<int,int> mKeyDepth;
+	std::unordered_map<int, TreeType> mKeyTreeType;
 	
 	QTimer mTimer;
 	QElapsedTimer mElapsedTimer;

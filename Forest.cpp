@@ -2,7 +2,6 @@
 
 Forest::Forest()
 {
-	mUseMixedEssence = false;
 	mTreeTypeConfig = TreeType::Buisson;
 }
 
@@ -11,24 +10,48 @@ void Forest::addTree(std::unique_ptr<Tree> tree)
 	mTrees.push_back(std::move(tree));
 }
 
-void Forest::addSpecificTree(TreeType type)
+void Forest::addSpecificTree(TreeType type, size_t treeDepth,
+	std::function<size_t()> children,
+	std::function<double()> attachDist,
+	std::function<double()> angle,
+	std::function<double()> length,
+	std::function<double()> widthBase,
+	std::function<double()> widthPoint,
+	double lengthVal,
+	double widthBaseVal,
+	double widthPointVal,
+	int positionX,
+	int positionY,
+	Wind* wind)
 {
-	auto tree = createTreeOfType(type);
-	addTree(std::move(tree));
+	std::unique_ptr<Tree> tree;
+	switch (type) {
+	case TreeType::Buisson:
+		tree = std::make_unique<Buisson>(treeDepth,children,
+			attachDist,
+			angle,length,widthBase,widthPoint,lengthVal,widthBaseVal,widthPointVal,positionX,positionY,wind);
+		break;
+	case TreeType::Sapin:
+		tree = std::make_unique<Sapin>(treeDepth, children,
+			attachDist,
+			angle, length, widthBase, widthPoint, lengthVal, widthBaseVal, widthPointVal, positionX, positionY, wind);
+		break;
+	case TreeType::Baobab:
+		tree = std::make_unique<Baobab>(treeDepth, children,
+			attachDist,
+			angle, length, widthBase, widthPoint, lengthVal, widthBaseVal, widthPointVal, positionX, positionY, wind);
+		break;
+	default:
+		break;
+	}
+	if (tree) {
+		mTrees.push_back(std::move(tree));
+	}
 }
 
 void Forest::randomizeTrees()
 {
-	clear(); // Effacer les arbres existants avant de randomiser
 
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> distrib(1, 2); // Ajustez pour le nombre de types d'arbres
-
-	for (size_t i = 0; i < mTrees.size(); ++i) {
-		TreeType type = mUseMixedEssence ? static_cast<TreeType>(distrib(gen)) : mTreeTypeConfig;
-		addSpecificTree(type);
-	}
 }
 
 void Forest::update(double elapsedTime)
@@ -53,17 +76,6 @@ void Forest::clear()
 	mTrees.clear();
 }
 
-std::unique_ptr<Tree> Forest::createTreeOfType(TreeType type)
-{
-	switch (type) {
-	case TreeType::Baobab:
-		return nullptr;
-	case TreeType::Buisson:
-		return nullptr; //std::make_unique<Buisson>();
-	default:
-		return nullptr;
-	}
-}
 
 void Forest::updateTreePositions(int windowHeight, float plantingArea)
 {

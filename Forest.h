@@ -28,7 +28,19 @@ public:
 	// Ajouter un arbre à la forêt
 	void addTree(std::unique_ptr<Tree> tree);
 	// Ajoute une essence d'arbre spécifique à la forêt
-	void addSpecificTree(TreeType type);
+	void addSpecificTree(TreeType type, size_t treeDepth,
+		std::function<size_t()> children,
+		std::function<double()> attachDist,
+		std::function<double()> angle,
+		std::function<double()> length,
+		std::function<double()> widthBase,
+		std::function<double()> widthPoint,
+		double lengthVal,
+		double widthBaseVal,
+		double widthPointVal,
+		int positionX,
+		int positionY,
+		Wind* wind);
 
 	// Randomise les essences d'arbre dans la forêt
 	void randomizeTrees();
@@ -44,12 +56,7 @@ public:
 private:
 	std::vector<std::unique_ptr<Tree>> mTrees;
 	TreeType mTreeTypeConfig; // Configuration de type d'arbre pour la forêt
-	bool mUseMixedEssence; // Indique si la forêt utilise un mélange d'essences d'arbres
 
-
-
-	// Pour créer un arbre d'une essence spécifique
-	std::unique_ptr<Tree> createTreeOfType(TreeType type);
 };
 
 #endif
