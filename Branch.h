@@ -47,7 +47,7 @@ public:
 	bool isInfectable() const;
 	void infect();
 	void infectDeepest();
-	void updateInfection(double time);
+	void updateInfection();
 	int getMaxDepth() const;
 private:
 	size_t mTreeDepth;

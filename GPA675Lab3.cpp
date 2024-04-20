@@ -114,7 +114,11 @@ void GPA675Lab3::tic()
 
 		if (mVirus)
 		{
-			mForest.updateInfection(elapsedTime);
+			if (mVirusTimer.hasExpired(5000))
+			{
+				mForest.updateInfection();
+				mVirusTimer.restart();
+			}
 		}
 		mForest.update(elapsedTime);
 		mWind.computeWind(elapsedTime);

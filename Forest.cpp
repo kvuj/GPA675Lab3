@@ -87,10 +87,10 @@ void Forest::infectTree()
 	}
 }
 
-void Forest::updateInfection(double time)
+void Forest::updateInfection()
 {
 	for (auto& tree : mTrees) {
-		tree->updateInfection(time); // Supposer que Tree a une méthode pour mettre à jour l'infection
+		tree->updateInfection(); // Supposer que Tree a une méthode pour mettre à jour l'infection
 	}
 }
 
