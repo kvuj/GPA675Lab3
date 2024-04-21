@@ -60,6 +60,25 @@ void Branch::draw(QPainter* painter) const
 {
 	painter->save();
 
+	QPointF startPoint(0, 0); // Commencez toujours à la base de la branche
+	QPointF endPoint(mLength, 0); // Finissez au bout de la branche
+
+	QLinearGradient gradient(startPoint, endPoint);
+	// Si la branche est infectée, utilisez un gradient de gris, sinon utilisez la couleur normale de la branche
+	if (isInfected) {
+		// La couleur plus foncée à la base de la branche
+		gradient.setColorAt(0, QColor(105, 105, 105));
+		// La couleur plus claire au bout de la branche
+		gradient.setColorAt(1, QColor(169, 169, 169));
+	}
+	else {
+		// Si la branche n'est pas infectée, utilisez la couleur normale pour tout le gradient
+		gradient.setColorAt(0, mColor);
+		gradient.setColorAt(1, mColor);
+	}
+
+	
+
 	if (mParent) [[likely]] {
 		painter->translate((mParent->mLength) * mLinearAttachDistance, 0);
 		painter->rotate(mAngleBetweenParent + (mAngleFromWind * 0.05));
@@ -67,7 +86,8 @@ void Branch::draw(QPainter* painter) const
 	else {
 		painter->rotate(-90.0); // Base de l'arbre
 	}
-	painter->setBrush(mColor);
+	// Définissez le pinceau du peintre pour utiliser le gradient
+	painter->setBrush(gradient);
 	painter->drawConvexPolygon(mPoly);
 
 	for (auto& i : mChildren)

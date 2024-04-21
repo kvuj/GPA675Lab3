@@ -108,11 +108,12 @@ void Forest::updateInfection()
 {
 	for (auto& tree : mTrees)
 	{
-		tree->updateInfection();
 		if (!tree->getTrunk()->isInfectable())
 		{
 			tree->markForRemoval();
 		}
+		tree->updateInfection();
+		
 	}
 	mTrees.erase(std::remove_if(mTrees.begin(),mTrees.end(),[](const std::unique_ptr<Tree>& tree)
 		{ return tree->shouldRemove(); }),
