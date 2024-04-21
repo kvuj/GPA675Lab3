@@ -51,6 +51,11 @@ Branch::Branch(size_t treeDepth
 	}
 }
 
+Branch::~Branch()
+{
+}
+
+
 void Branch::draw(QPainter* painter) const
 {
 	painter->save();
