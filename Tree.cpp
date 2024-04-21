@@ -87,7 +87,8 @@ void Tree::updateInfection()
 {
 	if (mTrunk)
 	{
-		mTrunk->updateInfection();
+		
+			mTrunk->updateInfection();
 	}
 
 }

@@ -1,7 +1,6 @@
 ﻿#pragma once
 #ifndef TREE_H
 #define TREE_H
-#include "TreeConfiguration.h"
 
 #include <functional>
 
@@ -14,7 +13,19 @@
 class Tree
 {
 public:
-	Tree(const TreeConfiguration& config, int positionX, int positionY, Wind* wind, size_t currentDepth, std::function<size_t()> children);
+	Tree(size_t treeDepth
+		, std::function<size_t()> children
+		, std::function<double()> attachDist
+		, std::function<double()> angle
+		, std::function<double()> length
+		, std::function<double()> widthBase
+		, std::function<double()> widthPoint
+		, double lengthVal
+		, double widthBaseVal
+		, double widthPointVal
+		, int positionX
+		, int positionY
+		, Wind* wind);
 	virtual ~Tree();
 	Tree(const Tree& tr) = delete;
 	Tree(Tree&& tr) noexcept;
@@ -30,12 +41,26 @@ public:
 	virtual void setPosition(QPoint position);
 	virtual void setLength(double length);
 
+	Branch* getTrunk() { return mTrunk.get(); }
 	void infect(); // Méthode pour infecter l'arbre
 	void updateInfection();
+	void markForRemoval() {shouldBeKilled = true;}
+
+	// Méthode pour vérifier si l'arbre doit être supprimé
+	bool shouldRemove() const {return shouldBeKilled;}
+
 private:
 	std::unique_ptr<Branch> mTrunk;
 	QPoint mBasePosition;
 	Wind* mWind;
+
+
+	bool shouldBeKilled = false;
+
+	size_t mTotalHeight = 0.0; // À modifier dans les essences
+	size_t mTotalBranch = 0.0;
+	double mDensity = 0.0;
+	double mDeformationResistance = 0.0; // À modifier dans les essences
 };
 
 #endif
