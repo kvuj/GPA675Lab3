@@ -165,6 +165,7 @@ void GPA675Lab3::key_backSpace()
 {
 	configurationDone(mParams);
 	mState = DrawingType::Simulation;
+	mVirus = false;
 
 }
 
