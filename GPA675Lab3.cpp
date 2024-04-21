@@ -225,6 +225,14 @@ void GPA675Lab3::drawingHelp(QPaintEvent* event)
 	paint.drawText(100, 150, "Enter: Simulation");
 	paint.drawText(100, 175, "Backspace: Reset la simulation");
 	paint.drawText(100, 200, "0-9: Change le nombre d'arbres");
+	paint.drawText(100, 225, "-: Randomize le nombre d'arbres (2-5)");
+	paint.drawText(100, 250, "=: Randomize le nombre d'arbres (4-10)");
+	paint.drawText(100, 275, "Z: Buisson");
+	paint.drawText(100, 300, "X: Sapin");
+	paint.drawText(100, 325, "C: Baobab");
+	paint.drawText(100, 350, "V: Random");
+	paint.drawText(100, 375, "Q-I: Change la profondeur de l'arbre");
+	paint.drawText(100, 400, "Tab: Change la configuration du vent");
 }
 
 void GPA675Lab3::configurationDone(Parameters params)
