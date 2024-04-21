@@ -1,0 +1,74 @@
+Timothée Leclaire-Fournier (timothee.leclaire-fournier.1@ens.etsmtl.ca)
+Participation: 50 %
+Réalisation: 50 %
+Impact: 50 %
+
+Martin Euzenat (@ens.etsmtl.ca)
+Participation: 50 %
+Réalisation: 50 %
+Impact: 50 %
+
+Quelles collections avez-vous utilisées pour les situations suivantes? Que justifient ces
+choix?
+▪ Contenir les arbres dans la forêt.
+Nous avons utilisé un std::vector de pointeurs uniques d'arbes dans notre forêt. Nous avons
+choisi cette façon de les contenir à cause de sa simplicité et sa performance. Un std::vector
+représente un tableau contigu en mémoire, ce qui est extrêmement rapide pour un processeur, 
+puisque celui-ci "lit" une ligne de cache à la fois, ce qui permet de tout lire les pointeurs
+en même temps.
+
+Les pointeurs intelligents ont pu simplifier la destruction de la forêt et permettre de ne pas
+avoir à penser à la désallocation de la mémoire.
+
+▪ Les branches enfants d’une branche.
+Nous avons utilisé un std::vector pour représenter les pointeurs des enfants. Encore une fois,
+nous avons choisi cette approche pour la performance, ainsi que l'utilisation mémoire qui est 
+plus frugale (surtout avec .reserve() qui permet de maximiser l'espace mémoire).
+
+
+2. Considérant que vous avez n nœuds (ou n branches) dans votre arbre, on vous demande
+de donner l’ordre de complexité et de justifier pourquoi dans les contextes suivants
+(soyez concis) :
+▪ votre algorithme d’affichage
+Ordre n puisque nous touchons tous les noeuds une fois.
+
+▪ pour connaître le nombre de branches de l’arbre
+Ordre n, puisque nous devons toucher aux noeuds les plus profonds pour savoir
+qu'ils aient aucun enfant.
+
+▪ pour connaître la hauteur de l’arbre (ou la profondeur)
+Ordre log n, puisque nous devons toucher à toutes les branches pour être certains
+de la profondeur maximale.
+              
+▪ pour faire les calculs de déformation
+Ordre n, puisque nous utilisons une approche récursive avec un "stack".
+
+3. Dans le contexte de la simulation du vent, expliquez comment vous avez approché la
+modélisation de la déformation:
+▪ la déformation cumulative d’une branche selon la déformation de son parent,
+de son grands-parents, de son arrière grands-parents et ainsi de suite
+▪ la déformation d’une branche s’amplifiant selon le niveau
+▪ la déformation d’une branche s’amplifiant si la branche est perpendiculaire au
+vent
+▪ la déformation d’une branche selon le sens de la rotation (horaire ou
+antihoraire) selon la direction du vent et le point d’attache
+4. Quelles ont été les approches de génération de valeurs aléatoires utilisées? Donnez une
+description et une justification concises et précises.
+
+5. Aurait-il été possible de faire ce projet sans récursivité? Pourquoi?
+Nous croyons que oui, il aurait été possible en ayant un vecteur de branches dans lesquels
+nous incrovons leur profondeur, orientation, etc...
+
+La performance aurait probablement été meilleure, mais cela aurait été plus complexe.
+
+6. Décrivez sommairement votre ajout personnel :
+▪ Quel est votre ajout personnel?
+Nous avons ajouter un concept de virus qui se propage de branche en branche.
+
+▪ Expliquez en quoi cet ajout est pertinent considérant les objectifs pédagogiques
+de ce cours.
+Cet ajout permet de valider nos connaissances de notre structure de donnée en traversant celle-ci 
+ainsi que d'offrir un ajout étant pertinent à des arbres.
+
+▪ Dans votre code, où se trouve l’implémentation de cet ajout?
+Dans la classe Branch.
